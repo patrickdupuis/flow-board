@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const userRoutes = require("./userRoutes");
+const authRoutes = require("./routes/authentication");
 const mongoose = require("mongoose");
 require("dotenv").config({ path: "../.env" });
 const { MONGO_URI } = process.env;
@@ -26,7 +26,7 @@ mongoose
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-app.use("/auth", userRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
