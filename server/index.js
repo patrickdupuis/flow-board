@@ -18,7 +18,13 @@ app.use(express.json());
 mongoose
   .connect(MONGO_URI, options)
   .then(() => console.log("Connected to DB"))
-  .catch(console.error);
+  .catch((err) => {
+    console.error(err);
+    process.exit();
+  });
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use("/auth", userRoutes);
 
