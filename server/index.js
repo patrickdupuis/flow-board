@@ -13,6 +13,13 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 
+app.get("*", (req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: "Not found.",
+  });
+});
+
 db.connectToServer((err) => {
   if (err) {
     console.error(err);
