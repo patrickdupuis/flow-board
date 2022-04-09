@@ -1,3 +1,5 @@
+"use strict";
+
 require("dotenv").config({ path: "../.env" });
 
 const express = require("express");
