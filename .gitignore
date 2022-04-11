@@ -22,6 +22,9 @@ build
 .env.production.local
 .env.local
 
+# auth0 config
+auth_config.json
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
