@@ -1,17 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App from "./app";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import Auth0ProviderWithHistory from "./auth-provider-with-history";
+import AuthorizationProvider from "./authorization-provider";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Auth0ProviderWithHistory>
+      <AuthorizationProvider>
         <App />
-      </Auth0ProviderWithHistory>
+      </AuthorizationProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

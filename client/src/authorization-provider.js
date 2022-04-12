@@ -1,16 +1,16 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import configJson from "./auth_config.json";
 
-const Auth0ProviderWithHistory = ({ children }) => {
+const AuthorizationProvider = ({ children }) => {
   const domain = configJson.domain;
   const clientId = configJson.clientId;
   const audience = configJson.audience;
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onRedirectCallback = () => {
-    history.push(window.location.pathname);
+    navigate(window.location.pathname);
   };
 
   return (
@@ -26,4 +26,4 @@ const Auth0ProviderWithHistory = ({ children }) => {
   );
 };
 
-export default Auth0ProviderWithHistory;
+export default AuthorizationProvider;
