@@ -1,3 +1,5 @@
+// https://github.com/auth0-blog/auth0-express-js-sample
+
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const { domain, audience } = require("../config/env.dev");
