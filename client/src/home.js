@@ -1,17 +1,17 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import logo from "./logo.svg";
-import "./App.css";
+import "./home.css";
 import LoginButton from "./login";
 import LogoutButton from "./logout";
 import Profile from "./profile";
 
-function App() {
+function Home() {
   const { isAuthenticated } = useAuth0();
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className="Home">
+      <header className="Home-header">
+        <img src={logo} className="Home-logo" alt="logo" />
         <Profile />
         {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
       </header>
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
