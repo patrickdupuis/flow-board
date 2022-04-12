@@ -1,29 +1,34 @@
 "use strict";
 
-require("dotenv").config({ path: "../.env" });
-
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require("morgan");
-const PORT = process.env.PORT || 4000;
+const { serverPort, clientOriginUrl } = require("./config/env.dev");
 const db = require("./db/connection");
-const authRoutes = require("./routes/authentication");
+const { checkJwt } = require("./auth/check-jwt");
 
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: clientOriginUrl }));
 app.use(express.json());
 app.use(morgan("tiny"));
 
-app.use("/auth", authRoutes);
+app.get("/", (req, res) => {
+  res.status(200).json({ status: 200, message: "Hello, world!" });
+});
 
-app.get("*", (req, res) => {
-  res.status(404).json({
-    status: 404,
-    message: "Not found.",
-  });
+// protected endpoint using JWT
+app.get("/protected", checkJwt, (req, res) => {
+  res
+    .status(200)
+    .json({ status: 200, message: "Hello from protected endpoint" });
+});
+
+app.use(function (err, req, res, next) {
+  console.log(err);
+  res.status(500).json({ status: 500, message: err.message });
 });
 
 db.connectToServer((err) => {
@@ -32,7 +37,7 @@ db.connectToServer((err) => {
     process.exit();
   }
 
-  app.listen(PORT, () => {
-    console.log(`listening on port ${PORT}`);
+  app.listen(serverPort, () => {
+    console.log(`listening on port ${serverPort}`);
   });
 });

@@ -1,7 +1,6 @@
-require("dotenv").config({ path: "../../.env" });
-
 const mongoose = require("mongoose");
-const { MONGO_URI } = process.env;
+const { mongoUri } = require("../config/env.dev");
+
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -11,7 +10,7 @@ let db;
 
 const connectToServer = (callback) => {
   mongoose
-    .connect(MONGO_URI, options)
+    .connect(mongoUri, options)
     .then(() => {
       console.log("Connected to DB");
       db = mongoose.connection;
