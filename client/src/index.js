@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import App from "./app";
 import AuthorizationProvider from "./authorization-provider";
+import GlobalStyle from "./GlobalStyle";
 
 import "./index.css";
 
@@ -13,6 +14,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthorizationProvider>
+        <GlobalStyle />
         <App />
       </AuthorizationProvider>
     </BrowserRouter>
