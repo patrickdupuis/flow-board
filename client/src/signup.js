@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const LoginButton = ({ primary }) => {
+const SignupButton = ({ primary }) => {
   const { loginWithRedirect } = useAuth0();
 
   return (
-    <Button primary={primary} onClick={() => loginWithRedirect()}>
-      Log In
+    <Button
+      primary={primary}
+      onClick={() =>
+        loginWithRedirect({
+          screen_hint: "signup",
+        })
+      }
+    >
+      Sign Up
     </Button>
   );
 };
@@ -20,4 +27,4 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-export default LoginButton;
+export default SignupButton;
