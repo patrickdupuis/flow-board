@@ -4,8 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import App from "./app";
 import AuthorizationProvider from "./authorization-provider";
-
-import "./index.css";
+import GlobalStyle from "./GlobalStyle";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -13,6 +12,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthorizationProvider>
+        <GlobalStyle />
         <App />
       </AuthorizationProvider>
     </BrowserRouter>
