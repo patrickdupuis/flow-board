@@ -10,31 +10,39 @@ const App = () => {
   return (
     <Wrapper>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/protected"
-          element={<RequireAuth component={<Protected />} />}
-        />
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
-      </Routes>
+      <Main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/protected"
+            element={<RequireAuth component={<Protected />} />}
+          />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
+        </Routes>
+      </Main>
       <Footer />
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   box-sizing: border-box;
+`;
+
+const Main = styled.main`
+  position: relative;
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
 `;
 
 export default App;

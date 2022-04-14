@@ -18,12 +18,12 @@ const Header = () => {
 };
 
 const Wrapper = styled.div`
-  margin-bottom: 1rem;
-  padding: 1rem 0;
   position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
   width: 100%;
+  min-height: var(--header-height);
   background-color: #f8f9fa;
   box-shadow: 0 1px 2px 0 #dfe3ec;
 `;
