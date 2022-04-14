@@ -3,6 +3,11 @@
 import * as styled from "styled-components";
 
 const GlobalStyle = styled.createGlobalStyle`
+  :root {
+    --header-height: 60px;
+    --footer-height: 40px;
+  }
+
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",

@@ -10,7 +10,8 @@ const Footer = () => {
 };
 
 const Wrapper = styled.div`
-  padding: 1rem 20px;
+  padding: 0 20px;
+  min-height: var(--footer-height);
   display: flex;
   justify-content: flex-end;
   align-items: center;
