@@ -4,6 +4,7 @@ import RequireAuth from "./require-auth";
 import Home from "./home";
 import Protected from "./protected";
 import Header from "./header";
+import Footer from "./footer";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           }
         />
       </Routes>
+      <Footer />
     </Wrapper>
   );
 };
