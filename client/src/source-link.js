@@ -4,7 +4,7 @@ import GithubIcon from "./github-icon";
 const SourceLink = () => {
   return (
     <Anchor href="#">
-      <span>view source code</span>
+      <Text>view source code</Text>
       <GithubIcon size="1.5rem" />
     </Anchor>
   );
@@ -18,6 +18,11 @@ const Anchor = styled.a`
   align-items: center;
   color: black;
   text-decoration: none;
+`;
+
+// move text slightly higher for better visual alignment
+const Text = styled.span`
+  padding-bottom: 2px;
 `;
 
 export default SourceLink;
