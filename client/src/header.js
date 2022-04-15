@@ -2,18 +2,22 @@ import styled from "styled-components";
 import Logo from "./logo";
 import MainNav from "./main-nav";
 import AuthNav from "./auth-nav";
+import UserDropdown from "./user-dropdown";
 
 const Header = () => {
   return (
-    <Wrapper>
-      <Nav>
-        <LogoWrapper>
-          <Logo size="2.5rem" />
-        </LogoWrapper>
-        <MainNav />
-        <AuthNav />
-      </Nav>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Nav>
+          <LogoWrapper>
+            <Logo size="2.5rem" />
+          </LogoWrapper>
+          <MainNav />
+          <AuthNav />
+        </Nav>
+      </Wrapper>
+      <UserDropdown />
+    </>
   );
 };
 

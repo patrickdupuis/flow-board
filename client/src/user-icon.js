@@ -3,10 +3,12 @@ import { FaUserCircle, FaChevronDown } from "react-icons/fa";
 
 const UserIcon = () => {
   return (
-    <Wrapper>
-      <FaUserCircle size={25} />
-      <FaChevronDown />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <FaUserCircle size={25} />
+        <FaChevronDown />
+      </Wrapper>
+    </>
   );
 };
 

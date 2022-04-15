@@ -15,13 +15,16 @@ const AuthNav = () => {
           <SignupButton primary={true} />
         </>
       ) : (
-        <UserIcon />
+        <>
+          <UserIcon />
+        </>
       )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  position: relative;
   margin-left: auto;
   display: flex;
   align-items: center;
