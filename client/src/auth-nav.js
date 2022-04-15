@@ -2,25 +2,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import LoginButton from "./login";
 import SignupButton from "./signup";
-import UserIcon from "./user-icon";
-import UserDropdown from "./user-dropdown";
+import UserMenu from "./user-menu";
 
 const AuthNav = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   return (
     <Wrapper>
-      {!isAuthenticated ? (
+      {!isAuthenticated && !isLoading ? (
         <>
           <LoginButton />
           <SignupButton primary={true} />
         </>
       ) : (
-        <>
-          <UserIcon />
-        </>
+        <>{!isLoading && <UserMenu />}</>
       )}
-      <UserDropdown />
     </Wrapper>
   );
 };

@@ -2,15 +2,22 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const UserDropdown = () => {
+const UserDropdown = ({ handleShowMenu }) => {
   const { logout } = useAuth0();
   const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    handleShowMenu();
+    if (window.location.pathname !== "/") {
+      navigate("/");
+    }
+  };
 
   return (
     <Wrapper>
       <List>
         <ListItem>
-          <Button onClick={() => navigate("/")}>Profile</Button>
+          <Button onClick={handleOnClick}>Profile</Button>
         </ListItem>
         <ListItem>
           <Button onClick={() => logout({ returnTo: window.location.origin })}>
