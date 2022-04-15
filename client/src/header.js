@@ -9,7 +9,7 @@ const Header = () => {
       <Wrapper>
         <Nav>
           <LogoWrapper>
-            <Logo size="2.5rem" />
+            <Logo size="2.5em" />
           </LogoWrapper>
           <MainNav />
           <AuthNav />

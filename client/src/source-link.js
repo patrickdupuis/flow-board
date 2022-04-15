@@ -5,7 +5,7 @@ const SourceLink = () => {
   return (
     <Anchor href="#">
       <Text>view source code</Text>
-      <GithubIcon size="1.5rem" />
+      <GithubIcon size="1.5em" />
     </Anchor>
   );
 };
