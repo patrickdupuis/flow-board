@@ -25,8 +25,8 @@ const UserDropdown = () => {
 const Wrapper = styled.div`
   position: absolute;
   z-index: 1;
-  top: 48px;
-  right: 15px;
+  top: 30px;
+  right: -5px;
   width: 10em;
 `;
 

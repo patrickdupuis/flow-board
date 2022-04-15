@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Logo from "./logo";
 import MainNav from "./main-nav";
 import AuthNav from "./auth-nav";
-import UserDropdown from "./user-dropdown";
 
 const Header = () => {
   return (
@@ -16,7 +15,6 @@ const Header = () => {
           <AuthNav />
         </Nav>
       </Wrapper>
-      <UserDropdown />
     </>
   );
 };

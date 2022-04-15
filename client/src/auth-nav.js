@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LoginButton from "./login";
 import SignupButton from "./signup";
 import UserIcon from "./user-icon";
+import UserDropdown from "./user-dropdown";
 
 const AuthNav = () => {
   const { isAuthenticated } = useAuth0();
@@ -19,6 +20,7 @@ const AuthNav = () => {
           <UserIcon />
         </>
       )}
+      <UserDropdown />
     </Wrapper>
   );
 };
