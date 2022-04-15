@@ -5,15 +5,17 @@ import AuthNav from "./auth-nav";
 
 const Header = () => {
   return (
-    <Wrapper>
-      <Nav>
-        <LogoWrapper>
-          <Logo size="2.5rem" />
-        </LogoWrapper>
-        <MainNav />
-        <AuthNav />
-      </Nav>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Nav>
+          <LogoWrapper>
+            <Logo size="2.5rem" />
+          </LogoWrapper>
+          <MainNav />
+          <AuthNav />
+        </Nav>
+      </Wrapper>
+    </>
   );
 };
 
