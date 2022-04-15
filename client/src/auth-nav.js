@@ -12,7 +12,7 @@ const AuthNav = () => {
       {!isAuthenticated && !isLoading ? (
         <>
           <LoginButton />
-          <SignupButton primary={true} />
+          <SignupButton primary={true}>Sign up</SignupButton>
         </>
       ) : (
         <>{!isLoading && <UserMenu />}</>
