@@ -1,19 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import logo from "./logo.svg";
-import LoginButton from "./login";
-import LogoutButton from "./logout";
-import Profile from "./profile";
 
 function Home() {
-  const { isAuthenticated } = useAuth0();
-
   return (
     <Wrapper>
       <Content>
         <Logo src={logo} alt="logo" />
-        <Profile />
-        {!isAuthenticated ? <LoginButton /> : <LogoutButton />}
       </Content>
     </Wrapper>
   );
