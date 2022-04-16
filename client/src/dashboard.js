@@ -3,15 +3,13 @@ import logo from "./logo.svg";
 
 const Dashboard = () => {
   return (
-    <Wrapper>
+    <div>
       <Content>
         <Logo src={logo} alt="logo" />
       </Content>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div``;
 
 const Content = styled.div`
   width: 100%;
