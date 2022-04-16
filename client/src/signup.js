@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const SignupButton = ({ primary }) => {
+const SignupButton = ({ primary, className, children }) => {
   const { loginWithRedirect } = useAuth0();
 
   return (
     <Button
+      className={className}
       primary={primary}
       onClick={() =>
         loginWithRedirect({
@@ -13,7 +14,7 @@ const SignupButton = ({ primary }) => {
         })
       }
     >
-      Sign Up
+      {children}
     </Button>
   );
 };

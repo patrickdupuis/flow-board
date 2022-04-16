@@ -1,12 +1,12 @@
 import { IconContext } from "react-icons";
 import { FiTrello } from "react-icons/fi";
 
-const Logo = ({ size }) => {
+const KanbanIcon = ({ className }) => {
   return (
-    <IconContext.Provider value={{ size: size }}>
+    <IconContext.Provider value={{ className: className }}>
       <FiTrello />
     </IconContext.Provider>
   );
 };
 
-export default Logo;
+export default KanbanIcon;
