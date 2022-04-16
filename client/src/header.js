@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import MainNav from "./main-nav";
 import AuthNav from "./auth-nav";
-import KanbanIcon from "./kanban-icon";
+import HeaderLogo from "./header-logo";
 
 const Header = () => {
   return (
@@ -39,7 +39,7 @@ const Nav = styled.nav`
   }
 `;
 
-const StyledLogo = styled(KanbanIcon)`
+const StyledLogo = styled(HeaderLogo)`
   margin-right: 20px;
   width: 42px;
   height: auto;
