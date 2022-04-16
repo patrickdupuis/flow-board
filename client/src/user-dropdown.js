@@ -6,16 +6,30 @@ const UserDropdown = ({ handleShowMenu }) => {
   const { logout } = useAuth0();
   const navigate = useNavigate();
 
-  const handleOnClick = () => {
+  const handleOnClick = (ev) => {
+    let path = ev.target.innerHTML.toLowerCase();
+    switch (path) {
+      case "dashboard":
+        path = "/";
+        break;
+      case "profile":
+        path = "/profile";
+        break;
+      default:
+        path = undefined;
+    }
     handleShowMenu();
-    if (window.location.pathname !== "/") {
-      navigate("/");
+    if (path && window.location.pathname !== path) {
+      navigate(path);
     }
   };
 
   return (
     <Wrapper>
       <List>
+        <ListItem>
+          <Button onClick={handleOnClick}>Dashboard</Button>
+        </ListItem>
         <ListItem>
           <Button onClick={handleOnClick}>Profile</Button>
         </ListItem>
