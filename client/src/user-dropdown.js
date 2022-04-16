@@ -23,8 +23,11 @@ const UserDropdown = ({ handleShowMenu }) => {
 
   const handleMenuSelect = (path) => {
     handleShowMenu();
-    if (path && window.location.pathname !== path) {
+    if (window.location.pathname !== path) {
       navigate(path);
+    } else {
+      // equivalent to location.reload()
+      navigate(0);
     }
   };
 
