@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import RequireAuth from "./require-auth";
 import Home from "./home";
-import Dashboard from "./dashboard";
 import Protected from "./protected";
 import Header from "./header";
 import Footer from "./footer";
@@ -14,10 +13,6 @@ const App = () => {
       <Main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/dashboard"
-            element={<RequireAuth component={<Dashboard />} />}
-          />
           <Route
             path="/protected"
             element={<RequireAuth component={<Protected />} />}
