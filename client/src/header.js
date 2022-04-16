@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import Logo from "./logo";
 import MainNav from "./main-nav";
 import AuthNav from "./auth-nav";
+import KanbanIcon from "./kanban-icon";
 
 const Header = () => {
   return (
     <>
       <Wrapper>
         <Nav>
-          <LogoWrapper>
-            <Logo size="2.5em" />
-          </LogoWrapper>
+          <StyledLogo />
           <MainNav />
           <AuthNav />
         </Nav>
@@ -41,8 +39,10 @@ const Nav = styled.nav`
   }
 `;
 
-const LogoWrapper = styled.div`
+const StyledLogo = styled(KanbanIcon)`
   margin-right: 20px;
+  width: 42px;
+  height: auto;
 `;
 
 export default Header;
