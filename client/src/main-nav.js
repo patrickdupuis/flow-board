@@ -1,14 +1,23 @@
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
+import ProjectMenu from "./project-menu";
 
 const MainNav = () => {
+  const { isAuthenticated, isLoading } = useAuth0();
+
   return (
     <Wrapper>
-      <StyledNavLink to="/" end>
-        Home
-      </StyledNavLink>
-      <StyledNavLink to="/about">About</StyledNavLink>
-      <StyledNavLink to="/contact">Contact</StyledNavLink>
+      {!isAuthenticated && !isLoading ? (
+        <>
+          <StyledNavLink to="/" end>
+            Home
+          </StyledNavLink>
+          <StyledNavLink to="/about">About</StyledNavLink>
+        </>
+      ) : (
+        <>{!isLoading && <ProjectMenu />}</>
+      )}
     </Wrapper>
   );
 };
