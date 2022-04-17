@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import Project from "./project";
 
 const Projects = () => {
   return (
     <Wrapper>
-      <div>Projects</div>
+      <Project />
     </Wrapper>
   );
 };
