@@ -18,6 +18,10 @@ const Anchor = styled.a`
   align-items: center;
   color: black;
   text-decoration: none;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 // move text slightly higher for better visual alignment
