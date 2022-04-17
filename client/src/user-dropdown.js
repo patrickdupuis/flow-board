@@ -89,6 +89,7 @@ const Button = styled.button`
   border: none;
   background-color: transparent;
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 export default UserDropdown;
