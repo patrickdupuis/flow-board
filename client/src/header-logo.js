@@ -4,13 +4,19 @@ import KanbanIcon from "./kanban-icon";
 
 const HeaderLogo = ({ className }) => {
   return (
-    <StyledLink reloadDocument to="/" end>
-      <KanbanIcon className={className} />
-    </StyledLink>
+    <Wrapper>
+      <StyledLink reloadDocument to="/" end>
+        <KanbanIcon className={className} />
+      </StyledLink>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div``;
+
 const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
   color: black;
 
   &:hover {
