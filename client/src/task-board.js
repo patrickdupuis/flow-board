@@ -3,7 +3,7 @@ import { DragDropContext, Droppable } from "@react-forked/dnd";
 import TaskList from "./task-list";
 
 // helper function for creating fake tasks
-const createTasks = (num) => {
+const createTasks = (num = 5) => {
   return Array.from({ length: num }, (v, k) => k).map((k) => {
     const custom = {
       id: `id-${k}`,
