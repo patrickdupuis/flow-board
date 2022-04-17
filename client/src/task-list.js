@@ -8,9 +8,9 @@ import Card from "./card";
 // });
 
 const TaskList = ({ cards }) => {
-  return cards.map((card, index) => (
-    <Card card={card} index={index} key={card.id} />
-  ));
+  return cards.map((card, index) => {
+    return <Card card={card} index={index} key={card.id} />;
+  });
 };
 
 export default TaskList;
