@@ -6,6 +6,7 @@ import Header from "./header";
 import Footer from "./footer";
 import Home from "./home";
 import Profile from "./profile";
+import Projects from "./projects";
 
 const App = () => {
   return (
@@ -17,6 +18,10 @@ const App = () => {
           <Route
             path="/profile"
             element={<RequireAuth component={<Profile />} />}
+          />
+          <Route
+            path="/projects"
+            element={<RequireAuth component={<Projects />} />}
           />
           <Route
             path="/protected"
