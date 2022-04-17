@@ -1,18 +1,14 @@
 import { useState } from "react";
-import { DragDropContext, Droppable } from "@react-forked/dnd";
+import { DragDropContext, Draggable, Droppable } from "@react-forked/dnd";
 import styled from "styled-components";
 import TaskList from "./task-list";
 
 // helper function for creating fake tasks
-const createTasks = (num = 5) => {
-  return Array.from({ length: num }, (v, k) => k).map((k) => {
-    const custom = {
-      id: `id-${k}`,
-      content: `Quote ${k}`,
-    };
-
-    return custom;
-  });
+const getItems = (count, offset = 0) => {
+  return Array.from({ length: count }, (v, k) => k).map((k) => ({
+    id: `item-${k + offset}-${new Date().getTime()}`,
+    content: `item ${k + offset}`,
+  }));
 };
 
 const reorder = (list, startIndex, endIndex) => {
@@ -23,38 +19,70 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
+const move = (source, destination, droppableSource, droppableDestination) => {
+  const sourceClone = Array.from(source);
+  const destClone = Array.from(destination);
+  const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+  destClone.splice(droppableDestination.index, 0, removed);
+
+  const result = {};
+  result[droppableSource.droppableId] = sourceClone;
+  result[droppableDestination.droppableId] = destClone;
+
+  return result;
+};
+
 const TaskBoard = () => {
-  const [state, setState] = useState({ cards: createTasks(10) });
+  const [state, setState] = useState([getItems(10), getItems(5, 10)]);
 
-  function onDragEnd(result) {
-    if (!result.destination) {
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+
+    // dropped outside the list
+    if (!destination) {
       return;
     }
+    const sInd = Number(source.droppableId);
+    const dInd = Number(destination.droppableId);
 
-    if (result.destination.index === result.source.index) {
-      return;
+    if (sInd === dInd) {
+      const items = reorder(state[sInd], source.index, destination.index);
+      const newState = [...state];
+      newState[sInd] = items;
+      setState(newState);
+    } else {
+      const result = move(state[sInd], state[dInd], source, destination);
+      const newState = [...state];
+      newState[sInd] = result[sInd];
+      newState[dInd] = result[dInd];
+      setState(newState.filter((group) => group.length));
     }
+  };
 
-    const cards = reorder(
-      state.cards,
-      result.source.index,
-      result.destination.index
-    );
-
-    setState({ cards });
-  }
+  const getListStyle = (isDraggingOver) => ({
+    background: isDraggingOver ? "lightblue" : "lightgrey",
+    padding: 8,
+    width: 250,
+  });
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
-        <Droppable droppableId="list-todo">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <TaskList cards={state.cards} />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+        {state.map((el, index) => (
+          <Droppable key={index} droppableId={`${index}`}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+                {...provided.droppableProps}
+              >
+                <TaskList cards={el} />
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        ))}
       </Wrapper>
     </DragDropContext>
   );
