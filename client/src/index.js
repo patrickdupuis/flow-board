@@ -9,14 +9,12 @@ import GlobalStyle from "./GlobalStyle";
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthorizationProvider>
-        <GlobalStyle />
-        <App />
-      </AuthorizationProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <AuthorizationProvider>
+      <GlobalStyle />
+      <App />
+    </AuthorizationProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
