@@ -19,6 +19,10 @@ const Wrapper = styled.div`
   align-items: center;
   gap: 4px;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 const MenuButton = styled.button`
