@@ -12,12 +12,12 @@ const UserDropdown = ({ handleShowMenu }) => {
       path: "/",
     },
     {
-      name: "Profile",
-      path: "/profile",
+      name: "Projects",
+      path: "/projects",
     },
     {
-      name: "Foobar",
-      path: "/foobar",
+      name: "Profile",
+      path: "/profile",
     },
   ];
 
