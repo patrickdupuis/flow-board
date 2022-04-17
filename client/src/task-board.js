@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DragDropContext, Droppable } from "@react-forked/dnd";
+import styled from "styled-components";
 import TaskList from "./task-list";
 
 // helper function for creating fake tasks
@@ -45,16 +46,22 @@ const TaskBoard = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="list">
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.droppableProps}>
-            <TaskList cards={state.cards} />
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <Wrapper>
+        <Droppable droppableId="list-todo">
+          {(provided) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              <TaskList cards={state.cards} />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </Wrapper>
     </DragDropContext>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 export default TaskBoard;
