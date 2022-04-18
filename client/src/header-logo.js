@@ -5,7 +5,7 @@ import KanbanIcon from "./kanban-icon";
 const HeaderLogo = ({ className }) => {
   return (
     <Wrapper>
-      <StyledLink reloadDocument to="/" end>
+      <StyledLink reloadDocument to="/">
         <KanbanIcon className={className} />
       </StyledLink>
     </Wrapper>
