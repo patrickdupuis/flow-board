@@ -1,45 +1,34 @@
 import { Draggable } from "@react-forked/dnd";
 import styled from "styled-components";
 
-const grid = 8;
-const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-
-  // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
-
-  // styles we need to apply on draggables
-  ...draggableStyle,
-});
-
 const Card = ({ card, index }) => {
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided, snapshot) => (
-        <div
+        <Container
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
+          isDragging={snapshot.isDragging}
+          style={provided.draggableProps.style}
         >
           <CardContent>{card.content}</CardContent>
-        </div>
+        </Container>
       )}
     </Draggable>
   );
 };
 
-const CardContent = styled.div`
-  width: 200px;
-  border: 1px solid grey;
+const Container = styled.div`
   margin-bottom: 8px;
-  background-color: lightblue;
+  padding: 6px;
+  user-select: "none";
+  border: 1px solid lightgrey;
+  background-color: white;
+  box-shadow: ${(props) => (props.isDragging ? "3px 3px 5px #e4e4e4" : "none")};
+`;
+
+const CardContent = styled.div`
   padding: 8px;
 `;
 

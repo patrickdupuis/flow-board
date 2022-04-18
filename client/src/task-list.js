@@ -29,13 +29,14 @@ const TaskList = React.memo(function TaskList({
 const Container = styled.div`
   margin: 8px;
   padding: 8px;
+  padding-bottom: 8rem;
   width: 280px;
   transition: background-color 0.2s ease;
   background-color: ${(props) =>
     props.isDraggingOver
-      ? "#ffeeee"
-      : props.draggingFromThisWith
       ? "#effff1"
+      : props.draggingFromThisWith
+      ? "#ffeeee"
       : "#f8f8f8"};
 `;
 
