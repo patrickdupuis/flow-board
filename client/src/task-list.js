@@ -14,6 +14,7 @@ const TaskList = React.memo(function TaskList({
         <Container
           ref={provided.innerRef}
           isDraggingOver={snapshot.isDraggingOver}
+          draggingFromThisWith={snapshot.draggingFromThisWith}
           {...provided.droppableProps}
         >
           <Title>{title}</Title>
@@ -29,14 +30,19 @@ const Container = styled.div`
   margin: 8px;
   padding: 8px;
   width: 280px;
-  background: ${(props) => (props.isDraggingOver ? "#e0eeff" : "#f8f8f8")};
+  transition: background-color 0.2s ease;
+  background-color: ${(props) =>
+    props.isDraggingOver
+      ? "#ffeeee"
+      : props.draggingFromThisWith
+      ? "#effff1"
+      : "#f8f8f8"};
 `;
 
 const Title = styled.h3`
   margin: 0;
   padding: 8px 0;
   font-size: 18px;
-  text-align: right;
 `;
 
 export default TaskList;
