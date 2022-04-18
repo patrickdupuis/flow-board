@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { DragDropContext, Draggable, Droppable } from "@react-forked/dnd";
+import { DragDropContext } from "@react-forked/dnd";
 import styled from "styled-components";
 import TaskList from "./task-list";
+import Card from "./card";
 
 // helper function for creating fake tasks
 const getItems = (count, offset = 0) => {
@@ -34,7 +35,12 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 const TaskBoard = () => {
-  const [state, setState] = useState([getItems(10), getItems(5, 10)]);
+  const [state, setState] = useState([
+    getItems(6),
+    getItems(4, 6),
+    getItems(3, 10),
+    getItems(3, 13),
+  ]);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -60,28 +66,19 @@ const TaskBoard = () => {
     }
   };
 
-  const getListStyle = (isDraggingOver) => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
-    padding: 8,
-    width: 250,
-  });
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
         {state.map((el, index) => (
-          <Droppable key={index} droppableId={`${index}`}>
-            {(provided, snapshot) => (
-              <div
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-                {...provided.droppableProps}
-              >
-                <TaskList cards={el} />
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <TaskList
+            title={`task-${index}`}
+            key={index}
+            droppableId={`${index}`}
+          >
+            {el.map((card, index) => (
+              <Card key={card.id} card={card} index={index} />
+            ))}
+          </TaskList>
         ))}
       </Wrapper>
     </DragDropContext>
