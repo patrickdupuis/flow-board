@@ -7,6 +7,11 @@ const morgan = require("morgan");
 const { serverPort, clientOriginUrl } = require("./config/env.dev");
 const db = require("./db/connection");
 const { checkJwt } = require("./auth/check-jwt");
+const {
+  handleTestOctocatIssues,
+  handleGetRepoIssues,
+  handleSearchRepoIssuesAndPulls,
+} = require("./octokit");
 
 const app = express();
 
@@ -18,6 +23,14 @@ app.use(morgan("tiny"));
 app.get("/", (req, res) => {
   res.status(200).json({ status: 200, message: "Hello, world!" });
 });
+
+// test Github REST API fetch
+app.get("/get-octocat-issues", handleTestOctocatIssues);
+
+// Get issues from specified repository
+app.get("/get-repo-issues", handleGetRepoIssues);
+
+app.get("/search-issues-and-pulls", handleSearchRepoIssuesAndPulls);
 
 // protected endpoint using JWT
 app.get("/protected", checkJwt, (req, res) => {
