@@ -13,6 +13,7 @@ const Card = ({ card, index }) => {
           style={provided.draggableProps.style}
         >
           <CardContent>{card.content}</CardContent>
+          <DeleteButton onClick={() => console.log("delete")}>x</DeleteButton>
         </Container>
       )}
     </Draggable>
@@ -20,6 +21,7 @@ const Card = ({ card, index }) => {
 };
 
 const Container = styled.div`
+  position: relative;
   margin-bottom: 8px;
   padding: 6px;
   user-select: "none";
@@ -30,6 +32,20 @@ const Container = styled.div`
 
 const CardContent = styled.div`
   padding: 8px;
+`;
+
+const DeleteButton = styled.button`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: none;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 export default Card;
