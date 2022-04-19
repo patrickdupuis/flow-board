@@ -57,18 +57,22 @@ const handleGetRepoIssues = (req, res) => {
 };
 
 const handleSearchRepoIssuesAndPulls = (req, res) => {
+  // const query = "ipod+repo:octocat/Spoon-knife+is:issue";
   const { q } = req.query;
-  //   const query = "ipod+repo:octocat/Spoon-knife+is:issue";
   octokit.rest.search
     .issuesAndPullRequests({
       q: q,
       sort: "created",
       order: "desc",
-      per_page: 10,
+      per_page: 3,
       page: 1,
     })
     .then(({ data }) => {
-      res.status(200).json({ status: 200, data: data });
+      const issues = data.items.map((issue) => {
+        const { html_url, title, user } = issue;
+        return { url: html_url, title, username: user.login };
+      });
+      res.status(200).json({ status: 200, results: issues });
     })
     .catch((err) => {
       console.log(err);

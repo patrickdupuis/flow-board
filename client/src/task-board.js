@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DragDropContext } from "@react-forked/dnd";
 import styled from "styled-components";
 import TaskList from "./task-list";
+import TaskSearch from "./task-search";
 import Card from "./card";
 
 // helper function for creating fake tasks
@@ -69,6 +70,7 @@ const TaskBoard = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
+        <TaskSearch droppableId={`task-search`} />
         {state.map((el, index) => (
           <TaskList
             title={`task-${index}`}
