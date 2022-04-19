@@ -64,7 +64,7 @@ const handleSearchRepoIssuesAndPulls = (req, res) => {
       q: q,
       sort: "created",
       order: "desc",
-      per_page: 3,
+      per_page: 5,
       page: 1,
     })
     .then(({ data }) => {
