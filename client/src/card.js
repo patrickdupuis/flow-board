@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { Draggable } from "@react-forked/dnd";
+import { BoardContext } from "./board-context";
 import styled from "styled-components";
 
-const Card = ({ card, index }) => {
+const Card = ({ card, index, listIndex }) => {
+  const { state, setState } = useContext(BoardContext);
+
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided, snapshot) => (
@@ -13,7 +17,15 @@ const Card = ({ card, index }) => {
           style={provided.draggableProps.style}
         >
           <CardContent>{card.content}</CardContent>
-          <DeleteButton onClick={() => console.log("delete")}>x</DeleteButton>
+          <DeleteButton
+            onClick={() => {
+              const newState = [...state];
+              newState[listIndex].splice(index, 1);
+              setState(newState);
+            }}
+          >
+            x
+          </DeleteButton>
         </Container>
       )}
     </Draggable>
@@ -49,3 +61,18 @@ const DeleteButton = styled.button`
 `;
 
 export default Card;
+
+/*
+<button
+  type="button"
+  onClick={() => {
+    const newState = [...state];
+    newState[ind].splice(index, 1);
+    setState(
+      newState.filter(group => group.length)
+    );
+ }}
+>
+  delete
+</button>
+*/

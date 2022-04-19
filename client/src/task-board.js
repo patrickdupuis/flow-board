@@ -28,8 +28,13 @@ const TaskBoard = () => {
               key={index}
               droppableId={`${index}`}
             >
-              {el.map((card, index) => (
-                <Card key={card.id} card={card} index={index} />
+              {el.map((card, cardIndex) => (
+                <Card
+                  key={card.id}
+                  card={card}
+                  index={cardIndex}
+                  listIndex={index}
+                />
               ))}
             </TaskList>
           )
