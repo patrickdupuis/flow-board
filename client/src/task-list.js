@@ -31,6 +31,7 @@ const Container = styled.div`
   padding: 8px;
   padding-bottom: 8rem;
   width: 280px;
+  min-height: 450px;
   transition: background-color 0.2s ease;
   background-color: ${(props) =>
     props.isDraggingOver

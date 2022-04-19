@@ -4,7 +4,12 @@ import TaskList from "./task-list";
 import Card from "./card";
 import styled from "styled-components";
 
-const TaskSearch = ({ searchResults, setSearchResults, droppableId }) => {
+const TaskSearch = ({
+  title,
+  searchResults,
+  setSearchResults,
+  droppableId,
+}) => {
   const [state, setState] = useState({
     repositoryInput: "",
     searchBarInput: "",
@@ -59,7 +64,7 @@ const TaskSearch = ({ searchResults, setSearchResults, droppableId }) => {
 
   return (
     <Wrapper>
-      <TaskList title="search" droppableId={droppableId}>
+      <TaskList title={title} droppableId={droppableId}>
         <Form>
           <FormInput
             type="text"

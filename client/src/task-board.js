@@ -6,13 +6,15 @@ import TaskList from "./task-list";
 import TaskSearch from "./task-search";
 import Card from "./card";
 
+const listTitles = ["Search", "To Do", "In Progress", "Done"];
+
 // helper function for creating fake tasks
-const getItems = (count, offset = 0) => {
-  return Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: uuidv4(),
-    content: `item ${k + offset}`,
-  }));
-};
+// const getItems = (count, offset = 0) => {
+//   return Array.from({ length: count }, (v, k) => k).map((k) => ({
+//     id: uuidv4(),
+//     content: `item ${k + offset}`,
+//   }));
+// };
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -37,13 +39,9 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 };
 
 const TaskBoard = () => {
-  const [state, setState] = useState([
-    getItems(0),
-    getItems(6),
-    getItems(0, 6),
-    getItems(3, 6),
-    getItems(3, 9),
-  ]);
+  const [state, setState] = useState(
+    Array.from({ length: listTitles.length }).map(() => [])
+  );
 
   const setSearchResults = (searchResults) => {
     const newState = Array.from(state);
@@ -85,12 +83,12 @@ const TaskBoard = () => {
               searchResults={state[0]}
               setSearchResults={setSearchResults}
               key={index}
-              title="search"
+              title={listTitles[index]}
               droppableId={`${index}`}
             />
           ) : (
             <TaskList
-              title={`task-${index}`}
+              title={listTitles[index]}
               key={index}
               droppableId={`${index}`}
             >
