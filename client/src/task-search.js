@@ -13,6 +13,7 @@ const TaskSearch = ({ droppableId, children }) => {
     try {
       const response = await fetch(`/search-issues-and-pulls?q=${query}`);
       const { results } = await response.json();
+      // don't clear searchBarInput text for use convenience when searching again
       setState({ ...state, searchResults: results });
     } catch (err) {
       console.log(err);
@@ -42,6 +43,7 @@ const TaskSearch = ({ droppableId, children }) => {
             type="text"
             placeholder="search for issues"
             onChange={handleInputChange}
+            value={state.searchBarInput}
           />
           <SearchButton
             type="button"
