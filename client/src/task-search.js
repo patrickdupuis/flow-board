@@ -3,7 +3,7 @@ import TaskList from "./task-list";
 import Card from "./card";
 import styled from "styled-components";
 
-const TaskSearch = ({ droppableId, children }) => {
+const TaskSearch = ({ droppableId }) => {
   const [state, setState] = useState({
     searchBarInput: "",
     searchResults: [],
@@ -51,8 +51,17 @@ const TaskSearch = ({ droppableId, children }) => {
             value="search"
           />
         </Form>
-        <Card index={0} card={{ id: "foobar-0", content: "foobar" }} />
-        {children}
+        {state.searchResults.length > 0 ? (
+          state.searchResults.map((el, index) => (
+            <Card
+              key={index}
+              card={{ id: el.url, content: el.title }}
+              index={index}
+            />
+          ))
+        ) : (
+          <div></div>
+        )}
       </TaskList>
     </Wrapper>
   );
