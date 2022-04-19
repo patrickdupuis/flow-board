@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { DragDropContext } from "@react-forked/dnd";
 import styled from "styled-components";
 import TaskList from "./task-list";
@@ -8,7 +9,7 @@ import Card from "./card";
 // helper function for creating fake tasks
 const getItems = (count, offset = 0) => {
   return Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k + offset}-${new Date().getTime()}`,
+    id: uuidv4(),
     content: `item ${k + offset}`,
   }));
 };
@@ -37,11 +38,19 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 
 const TaskBoard = () => {
   const [state, setState] = useState([
+    getItems(0),
     getItems(6),
-    getItems(4, 6),
-    getItems(3, 10),
-    getItems(3, 13),
+    getItems(0, 6),
+    getItems(3, 6),
+    getItems(3, 9),
   ]);
+
+  const setSearchResults = (searchResults) => {
+    const newState = Array.from(state);
+    newState.shift();
+    newState.unshift(searchResults);
+    setState(newState);
+  };
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
@@ -63,25 +72,34 @@ const TaskBoard = () => {
       const newState = [...state];
       newState[sInd] = result[sInd];
       newState[dInd] = result[dInd];
-      setState(newState.filter((group) => group.length));
+      setState(newState);
     }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
-        <TaskSearch droppableId={`task-search`} />
-        {state.map((el, index) => (
-          <TaskList
-            title={`task-${index}`}
-            key={index}
-            droppableId={`${index}`}
-          >
-            {el.map((card, index) => (
-              <Card key={card.id} card={card} index={index} />
-            ))}
-          </TaskList>
-        ))}
+        {state.map((el, index) =>
+          index === 0 ? (
+            <TaskSearch
+              searchResults={state[0]}
+              setSearchResults={setSearchResults}
+              key={index}
+              title="search"
+              droppableId={`${index}`}
+            />
+          ) : (
+            <TaskList
+              title={`task-${index}`}
+              key={index}
+              droppableId={`${index}`}
+            >
+              {el.map((card, index) => (
+                <Card key={card.id} card={card} index={index} />
+              ))}
+            </TaskList>
+          )
+        )}
       </Wrapper>
     </DragDropContext>
   );

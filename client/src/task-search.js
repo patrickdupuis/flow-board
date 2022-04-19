@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import TaskList from "./task-list";
 import Card from "./card";
 import styled from "styled-components";
 
-const TaskSearch = ({ droppableId }) => {
+const TaskSearch = ({ searchResults, setSearchResults, droppableId }) => {
   const [state, setState] = useState({
     repositoryInput: "",
     searchBarInput: "",
-    searchResults: [],
   });
 
   const fetchSearchResults = async (query) => {
@@ -15,10 +15,15 @@ const TaskSearch = ({ droppableId }) => {
       const response = await fetch(`/search-issues-and-pulls?q=${query}`);
       const results = await response.json();
       if (results.status === 200) {
-        // don't clear input texts for user convenience when searching again
-        setState({ ...state, searchResults: results.results });
+        const cards = results.results.map((el) => {
+          return {
+            id: uuidv4(),
+            content: el.title,
+          };
+        });
+        setSearchResults(cards);
       } else {
-        setState({ ...state, searchResults: [] });
+        setSearchResults([]);
       }
     } catch (err) {
       console.log(err);
@@ -72,26 +77,26 @@ const TaskSearch = ({ droppableId }) => {
             <SearchButton
               type="button"
               onClick={handleSearchButtonClicked}
-              // onClick={() => console.log("foo")}
               value="search"
             />
           </SearchContainer>
         </Form>
-        {state.searchResults.length > 0 ? (
-          state.searchResults.map((el, index) => (
-            <Card
-              key={index}
-              card={{ id: el.url, content: el.title }}
-              index={index}
-            />
+        {searchResults.length > 0 ? (
+          searchResults.map((el, index) => (
+            <Card key={el.id} card={el} index={index} />
           ))
         ) : (
-          <div></div>
+          <EmptyDropArea />
         )}
       </TaskList>
     </Wrapper>
   );
 };
+
+const EmptyDropArea = styled.div`
+  width: 100%;
+  height: 100px;
+`;
 
 const Wrapper = styled.div`
   position: relative;
