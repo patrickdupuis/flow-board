@@ -1,7 +1,8 @@
 import { Draggable } from "@react-forked/dnd";
 import styled from "styled-components";
+import CardDeleteButton from "./card-delete-button";
 
-const Card = ({ card, index }) => {
+const Card = ({ card, index, listIndex }) => {
   return (
     <Draggable draggableId={card.id} index={index}>
       {(provided, snapshot) => (
@@ -13,6 +14,7 @@ const Card = ({ card, index }) => {
           style={provided.draggableProps.style}
         >
           <CardContent>{card.content}</CardContent>
+          <CardDeleteButton index={index} listIndex={listIndex} />
         </Container>
       )}
     </Draggable>
@@ -20,6 +22,7 @@ const Card = ({ card, index }) => {
 };
 
 const Container = styled.div`
+  position: relative;
   margin-bottom: 8px;
   padding: 6px;
   user-select: "none";

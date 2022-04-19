@@ -88,7 +88,12 @@ const TaskSearch = ({
         </Form>
         {searchResults.length > 0 ? (
           searchResults.map((el, index) => (
-            <Card key={el.id} card={el} index={index} />
+            <Card
+              key={el.id}
+              card={el}
+              index={index}
+              listIndex={Number(droppableId)}
+            />
           ))
         ) : (
           <EmptyDropArea />
