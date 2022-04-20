@@ -9,7 +9,7 @@ const handleSearchRepoIssues = (req, res) => {
       q: q,
       sort: "created",
       order: "desc",
-      per_page: 5,
+      per_page: 20,
       page: 1,
     })
     .then(({ data }) => {

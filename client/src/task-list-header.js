@@ -49,6 +49,7 @@ const TaskListHeader = ({ listIndex, title, canAdd }) => {
 };
 
 const Wrapper = styled.div`
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
 `;
