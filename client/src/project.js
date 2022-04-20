@@ -16,9 +16,9 @@ const Project = () => {
 
 const Title = styled.h3`
   margin: 0;
-  padding: 0 45px 20px;
-  align-self: flex-start;
+  padding-bottom: 20px;
   font-size: 28px;
+  font-weight: 300;
 `;
 
 export default Project;
