@@ -43,11 +43,20 @@ const TaskSearch = ({
     }
   };
 
+  const clearSearchResults = () => {
+    // clear previous results
+    if (searchResults.length > 0) {
+      setSearchResults([]);
+    }
+  };
+
   const handleSearchInputChange = (ev) => {
+    clearSearchResults();
     setState({ ...state, searchBarInput: ev.target.value });
   };
 
   const handleRepoInputChange = (ev) => {
+    clearSearchResults();
     setState({ ...state, repositoryInput: ev.target.value });
   };
 
