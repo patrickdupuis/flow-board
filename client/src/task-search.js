@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TaskList from "./task-list";
@@ -14,10 +15,16 @@ const TaskSearch = ({
     repositoryInput: "",
     searchBarInput: "",
   });
+  const { getAccessTokenSilently } = useAuth0();
 
   const fetchSearchResults = async (query) => {
     try {
-      const response = await fetch(`/search-issues-and-pulls?q=${query}`);
+      const token = await getAccessTokenSilently();
+      const response = await fetch(`/search-issues?q=${query}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const results = await response.json();
       if (results.status === 200) {
         const cards = results.results.map((el) => {
