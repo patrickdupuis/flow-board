@@ -26,7 +26,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 export const BoardContext = createContext();
 
 const BoardProvider = ({ children }) => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const listTitles = ["Search", "To Do", "In Progress", "Done"];
   const [state, setState] = useState(
     Array.from({ length: listTitles.length }).map(() => [])
@@ -36,15 +36,24 @@ const BoardProvider = ({ children }) => {
     // set new state
     setState(newState);
 
-    // update DB
-    // FIXME: avoid pushing search results to DB
-    fetch("/update-board", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user: user.email, data: newState }),
-    }).catch((err) => console.log(err));
+    const patchData = async (newState) => {
+      try {
+        // update DB
+        // FIXME: avoid pushing search results to DB
+        const token = await getAccessTokenSilently();
+        await fetch("/update-board", {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ user: user.email, data: newState }),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    patchData(newState);
   };
 
   const setSearchResults = (searchResults) => {
@@ -79,13 +88,21 @@ const BoardProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    try {
-      fetch(`/project-user/${user.email}`)
-        .then((res) => res.json())
-        .then((res) => setState(res.data.data));
-    } catch (err) {
-      console.log(err);
-    }
+    const getData = async (user) => {
+      try {
+        const token = await getAccessTokenSilently();
+        fetch(`/project-user/${user}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => setState(res.data.data));
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getData(user.email);
   }, [user]);
 
   return (
