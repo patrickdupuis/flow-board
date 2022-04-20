@@ -37,6 +37,7 @@ const Container = styled.div`
 
 const CardContent = styled.div`
   font-size: 18px;
+  overflow-wrap: break-word;
 `;
 
 const CardIssueLink = styled.a`
