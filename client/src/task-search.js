@@ -64,7 +64,7 @@ const TaskSearch = ({
 
   return (
     <Wrapper>
-      <TaskList title={title} droppableId={droppableId}>
+      <TaskList title={title} canAdd={false} droppableId={droppableId}>
         <Form>
           <FormInput
             type="text"

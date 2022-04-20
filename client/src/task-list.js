@@ -1,10 +1,12 @@
 import React from "react";
 import { Droppable } from "@react-forked/dnd";
 import styled from "styled-components";
+import TaskListHeader from "./task-list-header";
 
 // Memoized version is apparently better for performance
 const TaskList = React.memo(function TaskList({
   title,
+  canAdd = true,
   droppableId,
   children,
 }) {
@@ -17,7 +19,11 @@ const TaskList = React.memo(function TaskList({
           draggingFromThisWith={snapshot.draggingFromThisWith}
           {...provided.droppableProps}
         >
-          <Title>{title}</Title>
+          <TaskListHeader
+            listIndex={Number(droppableId)}
+            title={title}
+            canAdd={canAdd}
+          />
           {children}
           {provided.placeholder}
         </Container>
@@ -39,12 +45,6 @@ const Container = styled.div`
       : props.draggingFromThisWith
       ? "#ffeeee"
       : "#f8f8f8"};
-`;
-
-const Title = styled.h3`
-  margin: 0;
-  padding: 8px 0;
-  font-size: 18px;
 `;
 
 export default TaskList;
