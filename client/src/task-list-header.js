@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BoardContext } from "./board-context";
 
 const TaskListHeader = ({ listIndex, title, canAdd }) => {
-  const { state, setState } = useContext(BoardContext);
+  const { state, updateBoard } = useContext(BoardContext);
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
 
@@ -12,7 +12,7 @@ const TaskListHeader = ({ listIndex, title, canAdd }) => {
     const newCard = { id: uuidv4(), content: inputText };
     const newState = [...state];
     newState[listIndex].unshift(newCard);
-    setState(newState);
+    updateBoard(newState);
     handleToggleAdd();
   };
 
