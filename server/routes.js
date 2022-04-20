@@ -28,7 +28,18 @@ const findProjectById = async (req, res) => {
 const findProjectByUser = async (req, res) => {
   const { user } = req.params;
   try {
-    const doc = await projectBoard.findOne({ user: user });
+    const doc = await projectBoard.findOneAndUpdate(
+      { user: user },
+      {},
+      { new: true, upsert: true }
+    );
+    // if we created a new document due to not finding a result above
+    // we must make sure we don't sent the frontend an empty array
+    // change doc.data to [[],[],[],[]] instead
+    // the array in the DB will become multi-dimentional once the frontend sends it an update
+    if (doc.data.length === 0) {
+      doc.data = Array.from({ length: 4 }).map(() => []);
+    }
     res.status(200).json({ status: 200, data: doc });
   } catch (err) {
     console.log(err);
