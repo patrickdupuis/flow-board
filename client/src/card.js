@@ -14,6 +14,9 @@ const Card = ({ card, index, listIndex }) => {
           style={provided.draggableProps.style}
         >
           <CardContent>{card.content}</CardContent>
+          {card.url && (
+            <CardIssueLink href={card.url}>view on github</CardIssueLink>
+          )}
           <CardDeleteButton index={index} listIndex={listIndex} />
         </Container>
       )}
@@ -23,8 +26,9 @@ const Card = ({ card, index, listIndex }) => {
 
 const Container = styled.div`
   position: relative;
-  margin-bottom: 8px;
-  padding: 6px;
+  margin-bottom: 10px;
+  padding: 5px 5px 25px;
+  min-height: 40px;
   user-select: "none";
   border: 1px solid lightgrey;
   background-color: white;
@@ -32,7 +36,15 @@ const Container = styled.div`
 `;
 
 const CardContent = styled.div`
-  padding: 8px;
+  font-size: 18px;
+`;
+
+const CardIssueLink = styled.a`
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  font-size: 14px;
+  color: grey;
 `;
 
 export default Card;

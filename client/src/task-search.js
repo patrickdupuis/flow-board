@@ -31,6 +31,7 @@ const TaskSearch = ({
           return {
             id: uuidv4(),
             content: el.title,
+            url: el.url,
           };
         });
         setSearchResults(cards);
