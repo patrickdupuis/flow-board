@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { BoardContext } from "./board-context";
 
 const CardDeleteButton = ({ index, listIndex }) => {
-  const { state, setState } = useContext(BoardContext);
+  const { state, updateBoard } = useContext(BoardContext);
 
   return (
     <DeleteButton
       onClick={() => {
         const newState = [...state];
         newState[listIndex].splice(index, 1);
-        setState(newState);
+        updateBoard(newState);
       }}
     >
       x

@@ -41,7 +41,8 @@ const updateBoard = async (req, res) => {
   try {
     const doc = await projectBoard.findOneAndUpdate(
       { user: user },
-      { data: data }
+      { data: data },
+      { new: true }
     );
     res.status(200).json({ status: 200, data: doc });
   } catch (err) {

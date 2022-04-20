@@ -32,11 +32,26 @@ const BoardProvider = ({ children }) => {
     Array.from({ length: listTitles.length }).map(() => [])
   );
 
+  const updateBoard = (newState) => {
+    // set new state
+    setState(newState);
+
+    // update DB
+    // FIXME: avoid pushing search results to DB
+    fetch("/update-board", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user: user.email, data: newState }),
+    }).catch((err) => console.log(err));
+  };
+
   const setSearchResults = (searchResults) => {
     const newState = Array.from(state);
     newState.shift();
     newState.unshift(searchResults);
-    setState(newState);
+    updateBoard(newState);
   };
 
   const onDragEnd = (result) => {
@@ -53,13 +68,13 @@ const BoardProvider = ({ children }) => {
       const items = reorder(state[sInd], source.index, destination.index);
       const newState = [...state];
       newState[sInd] = items;
-      setState(newState);
+      updateBoard(newState);
     } else {
       const result = move(state[sInd], state[dInd], source, destination);
       const newState = [...state];
       newState[sInd] = result[sInd];
       newState[dInd] = result[dInd];
-      setState(newState);
+      updateBoard(newState);
     }
   };
 
@@ -75,7 +90,14 @@ const BoardProvider = ({ children }) => {
 
   return (
     <BoardContext.Provider
-      value={{ listTitles, state, setState, onDragEnd, setSearchResults }}
+      value={{
+        listTitles,
+        state,
+        setState,
+        updateBoard,
+        onDragEnd,
+        setSearchResults,
+      }}
     >
       {children}
     </BoardContext.Provider>
