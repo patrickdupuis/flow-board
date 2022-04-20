@@ -8,6 +8,12 @@ const { serverPort, clientOriginUrl } = require("./config/env.dev");
 const db = require("./db/connection");
 const { checkJwt } = require("./auth/check-jwt");
 const { handleSearchRepoIssues } = require("./octokit");
+const {
+  createNewProject,
+  findProjectById,
+  findProjectByUser,
+  updateBoard,
+} = require("./routes");
 
 const app = express();
 
@@ -19,6 +25,11 @@ app.use(morgan("tiny"));
 app.get("/", (req, res) => {
   res.status(200).json({ status: 200, message: "Hello, world!" });
 });
+
+app.post("/create-project", createNewProject);
+app.get("/project-id/:_id", findProjectById);
+app.get("/project-user/:user", findProjectByUser);
+app.patch("/update-board", updateBoard);
 
 // Github API search for issues
 app.get("/search-issues", checkJwt, handleSearchRepoIssues);
