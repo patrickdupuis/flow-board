@@ -58,7 +58,7 @@ const TaskSearch = ({
       // make array of split words
       repo = repo.split("github.com/");
       // check that the last word in repo array isn't empty string
-      if (repo[repo.length - 1].length > 0 && query.length > 0) {
+      if (repo[repo.length - 1].length > 0) {
         // get the last element from repo array
         repo = repo[repo.length - 1];
         query = query.replaceAll(" ", "+");
