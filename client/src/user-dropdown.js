@@ -8,12 +8,8 @@ const UserDropdown = ({ handleShowMenu }) => {
 
   const menuItems = [
     {
-      name: "Dashboard",
-      path: "/",
-    },
-    {
-      name: "Projects",
-      path: "/projects",
+      name: "My Project",
+      path: "/my-project",
     },
     {
       name: "Profile",

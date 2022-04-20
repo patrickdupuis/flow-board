@@ -4,7 +4,11 @@ import Dashboard from "./dashboard";
 import LandingPage from "./landing";
 
 const Home = () => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
 
   return (
     <Wrapper>{!isAuthenticated ? <LandingPage /> : <Dashboard />}</Wrapper>

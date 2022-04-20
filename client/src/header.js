@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import MainNav from "./main-nav";
 import AuthNav from "./auth-nav";
 import HeaderLogo from "./header-logo";
 
@@ -9,7 +8,6 @@ const Header = () => {
       <Wrapper>
         <Nav>
           <StyledLogo />
-          <MainNav />
           <AuthNav />
         </Nav>
       </Wrapper>
