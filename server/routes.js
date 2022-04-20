@@ -28,7 +28,7 @@ const findProjectById = async (req, res) => {
 const findProjectByUser = async (req, res) => {
   const { user } = req.params;
   try {
-    const doc = await projectBoard.find({ user: user });
+    const doc = await projectBoard.findOne({ user: user });
     res.status(200).json({ status: 200, data: doc });
   } catch (err) {
     console.log(err);

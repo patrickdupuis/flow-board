@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -25,6 +26,7 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 export const BoardContext = createContext();
 
 const BoardProvider = ({ children }) => {
+  const { user } = useAuth0();
   const listTitles = ["Search", "To Do", "In Progress", "Done"];
   const [state, setState] = useState(
     Array.from({ length: listTitles.length }).map(() => [])
@@ -60,6 +62,16 @@ const BoardProvider = ({ children }) => {
       setState(newState);
     }
   };
+
+  useEffect(() => {
+    try {
+      fetch(`/project-user/${user.email}`)
+        .then((res) => res.json())
+        .then((res) => setState(res.data.data));
+    } catch (err) {
+      console.log(err);
+    }
+  }, [user]);
 
   return (
     <BoardContext.Provider
