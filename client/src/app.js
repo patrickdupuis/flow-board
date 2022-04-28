@@ -3,9 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import RequireAuth from "./require-auth";
 import Header from "./header";
-import Home from "./home";
+import LandingPage from "./landing";
 import Profile from "./profile";
-import Projects from "./projects";
+import Project from "./project";
 
 const App = () => {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -23,7 +23,7 @@ const App = () => {
               ) : isAuthenticated ? (
                 <Navigate to="/my-project" />
               ) : (
-                <Home />
+                <LandingPage />
               )
             }
           />
@@ -33,7 +33,7 @@ const App = () => {
           />
           <Route
             path="/my-project"
-            element={<RequireAuth component={<Projects />} />}
+            element={<RequireAuth component={<Project />} />}
           />
           <Route
             path="*"

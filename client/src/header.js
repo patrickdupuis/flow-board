@@ -4,14 +4,12 @@ import HeaderLogo from "./header-logo";
 
 const Header = () => {
   return (
-    <>
-      <Wrapper>
-        <Nav>
-          <StyledLogo />
-          <AuthNav />
-        </Nav>
-      </Wrapper>
-    </>
+    <Wrapper>
+      <Nav>
+        <HeaderLogo />
+        <AuthNav />
+      </Nav>
+    </Wrapper>
   );
 };
 
@@ -35,12 +33,6 @@ const Nav = styled.nav`
   @media (min-width: 1200px) {
     max-width: 100%;
   }
-`;
-
-const StyledLogo = styled(HeaderLogo)`
-  margin-right: 20px;
-  width: 42px;
-  height: auto;
 `;
 
 export default Header;

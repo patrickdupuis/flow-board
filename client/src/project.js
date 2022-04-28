@@ -7,12 +7,23 @@ const Project = () => {
   const { user } = useAuth0();
 
   return (
-    <BoardProvider>
-      <Title>{`${user.nickname}'s project board`}</Title>
-      <TaskBoard />
-    </BoardProvider>
+    <Wrapper>
+      <BoardProvider>
+        <Title>{`${user.nickname}'s project board`}</Title>
+        <TaskBoard />
+      </BoardProvider>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+`;
 
 const Title = styled.h3`
   margin: 0;

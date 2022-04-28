@@ -6,13 +6,15 @@ const HeaderLogo = ({ className }) => {
   return (
     <Wrapper>
       <StyledLink reloadDocument to="/">
-        <KanbanIcon className={className} />
+        <StyledIcon className={className} />
       </StyledLink>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-right: 20px;
+`;
 
 const StyledLink = styled(Link)`
   display: flex;
@@ -22,6 +24,11 @@ const StyledLink = styled(Link)`
   &:hover {
     opacity: 0.5;
   }
+`;
+
+const StyledIcon = styled(KanbanIcon)`
+  width: 42px;
+  height: auto;
 `;
 
 export default HeaderLogo;

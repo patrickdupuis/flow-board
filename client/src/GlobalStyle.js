@@ -1,5 +1,5 @@
-// use styled.createGlobalStyle in order
-// for Prettier to format things properly
+// use styled.createGlobalStyle in order for
+// Prettier to format things properly
 import * as styled from "styled-components";
 
 const GlobalStyle = styled.createGlobalStyle`
