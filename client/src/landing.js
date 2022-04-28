@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import KanbanIcon from "./kanban-icon";
-import SignupButton from "./signup";
+import SignupButton from "./signup-button";
 
 const LandingPage = () => {
   return (
