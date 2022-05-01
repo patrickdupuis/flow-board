@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const UserDropdown = ({ handleShowMenu }) => {
+const UserDropdown = ({ handleShowMenu, handleClickOutside }) => {
   const { logout } = useAuth0();
   const navigate = useNavigate();
 
@@ -26,6 +27,13 @@ const UserDropdown = ({ handleShowMenu }) => {
       navigate(0);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   return (
     <Wrapper>
