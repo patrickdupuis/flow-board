@@ -6,6 +6,7 @@ const GlobalStyle = styled.createGlobalStyle`
   :root {
     --header-height: 60px;
     --footer-height: 40px;
+    --card-min-height: 60px;
   }
 
   body {
