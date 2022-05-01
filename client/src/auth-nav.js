@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 import LoginButton from "./login-button";
 import SignupButton from "./signup-button";
+import DropDownProvider from "./dropdown-context";
 import UserMenu from "./user-menu";
 
 const AuthNav = () => {
@@ -19,7 +20,11 @@ const AuthNav = () => {
           <SignupButton primary={true}>Sign up</SignupButton>
         </>
       ) : (
-        <UserMenu />
+        <>
+          <DropDownProvider>
+            <UserMenu />
+          </DropDownProvider>
+        </>
       )}
     </Wrapper>
   );

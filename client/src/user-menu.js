@@ -1,29 +1,18 @@
-import { useState, useRef } from "react";
+import { useContext } from "react";
+import { DropDownContext } from "./dropdown-context";
 import UserIcon from "./user-icon";
 import UserDropdown from "./user-dropdown";
-// import useComponentVisible from "./useComponentVisible";
 
 const UserMenu = () => {
-  // const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const ref = useRef(null);
-
-  const handleShowMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleClickOutside = (ev) => {
-    if (ref.current && !ref.current.contains(ev.target)) {
-      setIsMenuOpen(false);
-    }
-  };
+  const { ref, isOpen, handleToggleMenu, handleClickOutside } =
+    useContext(DropDownContext);
 
   return (
     <div ref={ref}>
-      <UserIcon handleShowMenu={handleShowMenu} />
-      {isMenuOpen && (
+      <UserIcon handleShowMenu={handleToggleMenu} />
+      {isOpen && (
         <UserDropdown
-          handleShowMenu={handleShowMenu}
+          handleShowMenu={handleToggleMenu}
           handleClickOutside={handleClickOutside}
         />
       )}
