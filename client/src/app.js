@@ -50,7 +50,6 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -58,11 +57,8 @@ const Wrapper = styled.div`
 `;
 
 const Main = styled.main`
-  position: relative;
-  padding-top: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
