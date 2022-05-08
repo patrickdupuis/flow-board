@@ -60,9 +60,7 @@ const Wrapper = styled.div`
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   height: calc(100vh - var(--header-height));
-  overflow: auto;
 `;
 
 export default App;

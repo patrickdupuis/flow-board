@@ -20,8 +20,9 @@ const Wrapper = styled.div`
   padding: 0 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
+  overflow: auto;
 `;
 
 const Title = styled.h3`
