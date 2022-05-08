@@ -52,6 +52,7 @@ const App = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100vw;
   height: 100vh;
   box-sizing: border-box;
 `;
@@ -59,7 +60,9 @@ const Wrapper = styled.div`
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  height: calc(100vh - var(--header-height));
+  overflow: auto;
 `;
 
 export default App;
