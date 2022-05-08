@@ -11,7 +11,7 @@ const Profile = () => {
 
   return (
     isAuthenticated && (
-      <>
+      <Wrapper>
         <Container>
           <Avatar src={user.picture} alt={user.name} />
           <Info>
@@ -19,15 +19,23 @@ const Profile = () => {
             <Email>{user.email}</Email>
           </Info>
         </Container>
-      </>
+      </Wrapper>
     )
   );
 };
 
+const Wrapper = styled.div`
+  margin-top: var(--header-height);
+  display: flex;
+  justify-content: center;
+`;
+
 const Container = styled.div`
+  padding: 50px 100px;
   display: flex;
   align-items: center;
   gap: 20px;
+  border: 1px solid lightgrey;
 `;
 
 const Avatar = styled.img`
