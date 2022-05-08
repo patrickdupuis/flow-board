@@ -2,9 +2,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import BoardProvider from "./board-context";
 import TaskBoard from "./task-board";
 import styled from "styled-components";
+import Loading from "./loading";
 
 const Project = () => {
-  const { user } = useAuth0();
+  const { user, isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Wrapper>

@@ -6,6 +6,7 @@ import Header from "./header";
 import LandingPage from "./landing";
 import Profile from "./profile";
 import Project from "./project";
+import Loading from "./loading";
 
 const App = () => {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -19,7 +20,7 @@ const App = () => {
             path="/"
             element={
               isLoading ? (
-                <div>Loading ...</div>
+                <Loading />
               ) : isAuthenticated ? (
                 <Navigate to="/my-project" />
               ) : (
