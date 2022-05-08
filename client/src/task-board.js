@@ -45,6 +45,7 @@ const TaskBoard = () => {
 };
 
 const Wrapper = styled.div`
+  flex: 1;
   display: flex;
 `;
 
