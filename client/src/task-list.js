@@ -36,7 +36,7 @@ const Container = styled.div`
   margin: 8px;
   padding: 8px;
   padding-bottom: 8rem;
-  width: 280px;
+  width: var(--tasklist-width);
   min-height: 450px;
   transition: background-color 0.2s ease;
   background-color: ${(props) =>
