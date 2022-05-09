@@ -8,10 +8,11 @@ const TaskList = React.memo(function TaskList({
   title,
   canAdd = true,
   droppableId,
+  isDropDisabled = false,
   children,
 }) {
   return (
-    <Droppable droppableId={droppableId}>
+    <Droppable droppableId={droppableId} isDropDisabled={isDropDisabled}>
       {(provided, snapshot) => (
         <Container
           ref={provided.innerRef}

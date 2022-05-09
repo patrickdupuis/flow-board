@@ -81,7 +81,12 @@ const TaskSearch = ({
 
   return (
     <Wrapper>
-      <TaskList title={title} canAdd={false} droppableId={droppableId}>
+      <TaskList
+        title={title}
+        canAdd={false}
+        droppableId={droppableId}
+        isDropDisabled={true}
+      >
         <Form>
           <FormInput
             type="text"
@@ -113,14 +118,14 @@ const TaskSearch = ({
             />
           ))
         ) : (
-          <EmptyDropArea />
+          <EmptySpace />
         )}
       </TaskList>
     </Wrapper>
   );
 };
 
-const EmptyDropArea = styled.div`
+const EmptySpace = styled.div`
   width: 100%;
   height: 100px;
 `;
