@@ -6,7 +6,8 @@ const GlobalStyle = styled.createGlobalStyle`
   :root {
     --header-height: 60px;
     --footer-height: 40px;
-    --card-min-height: 60px;
+    --card-min-height: 80px;
+    --tasklist-width: 320px;
   }
 
   body {
