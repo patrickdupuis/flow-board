@@ -36,10 +36,10 @@ const BoardProvider = ({ children }) => {
     // set new state
     setState(newState);
 
-    const patchData = async (newState) => {
+    const updateDB = async (newState) => {
+      // avoid pushing search results to DB
+      const data = newState.slice(1);
       try {
-        // update DB
-        // FIXME: avoid pushing search results to DB
         const token = await getAccessTokenSilently();
         await fetch("/update-board", {
           method: "PATCH",
@@ -47,13 +47,14 @@ const BoardProvider = ({ children }) => {
             "Content-type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ user: user.email, data: newState }),
+          body: JSON.stringify({ user: user.email, data: data }),
         });
       } catch (err) {
         console.log(err);
       }
     };
-    patchData(newState);
+    // update DB
+    updateDB(newState);
   };
 
   const setSearchResults = (searchResults) => {
@@ -88,7 +89,7 @@ const BoardProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const getData = async (user) => {
+    const getUserProject = async (user) => {
       try {
         const token = await getAccessTokenSilently();
         fetch(`/project-user/${user}`, {
@@ -97,12 +98,15 @@ const BoardProvider = ({ children }) => {
           },
         })
           .then((res) => res.json())
-          .then((res) => setState(res.data.data));
+          .then((res) => {
+            // keep search results when updating state with data from DB
+            setState([state[0], ...res.data.data]);
+          });
       } catch (err) {
         console.log(err);
       }
     };
-    getData(user.email);
+    getUserProject(user.email);
   }, [user]);
 
   return (
