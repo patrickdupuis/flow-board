@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { SearchContext } from "./search-context";
 
 const reorder = (list, startIndex, endIndex) => {
   const result = Array.from(list);
@@ -26,8 +27,9 @@ const move = (source, destination, droppableSource, droppableDestination) => {
 export const BoardContext = createContext();
 
 const BoardProvider = ({ children }) => {
+  const listTitles = ["To Do", "In Progress", "Done"];
   const { user, getAccessTokenSilently } = useAuth0();
-  const listTitles = ["Search", "To Do", "In Progress", "Done"];
+  const { searchResults, setSearchResults } = useContext(SearchContext);
   const [state, setState] = useState(
     Array.from({ length: listTitles.length }).map(() => [])
   );
@@ -36,9 +38,7 @@ const BoardProvider = ({ children }) => {
     // set new state
     setState(newState);
 
-    const updateDB = async (newState) => {
-      // avoid pushing search results to DB
-      const data = newState.slice(1);
+    const updateDB = async (data) => {
       try {
         const token = await getAccessTokenSilently();
         await fetch("/update-board", {
@@ -57,13 +57,6 @@ const BoardProvider = ({ children }) => {
     updateDB(newState);
   };
 
-  const setSearchResults = (searchResults) => {
-    const newState = Array.from(state);
-    newState.shift();
-    newState.unshift(searchResults);
-    updateBoard(newState);
-  };
-
   const onDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -74,7 +67,14 @@ const BoardProvider = ({ children }) => {
     const sInd = Number(source.droppableId);
     const dInd = Number(destination.droppableId);
 
-    if (sInd === dInd) {
+    // search has droppableId of -1
+    if (sInd === -1) {
+      const result = move(searchResults, state[dInd], source, destination);
+      const newState = [...state];
+      newState[dInd] = result[dInd];
+      updateBoard(newState);
+      setSearchResults(result[sInd]);
+    } else if (sInd === dInd) {
       const items = reorder(state[sInd], source.index, destination.index);
       const newState = [...state];
       newState[sInd] = items;
@@ -99,8 +99,7 @@ const BoardProvider = ({ children }) => {
         })
           .then((res) => res.json())
           .then((res) => {
-            // keep search results when updating state with data from DB
-            setState([state[0], ...res.data.data]);
+            setState(res.data.data);
           });
       } catch (err) {
         console.log(err);
@@ -117,7 +116,6 @@ const BoardProvider = ({ children }) => {
         setState,
         updateBoard,
         onDragEnd,
-        setSearchResults,
       }}
     >
       {children}

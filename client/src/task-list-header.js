@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import { BoardContext } from "./board-context";
 
-const TaskListHeader = ({ listIndex, title, canAdd }) => {
+const TaskListHeader = ({ listIndex, title }) => {
   const { state, updateBoard } = useContext(BoardContext);
   const [isOpen, setIsOpen] = useState(false);
   const [inputText, setInputText] = useState("");
@@ -31,7 +31,7 @@ const TaskListHeader = ({ listIndex, title, canAdd }) => {
     <Wrapper>
       <TitleContainer>
         <Title>{title}</Title>
-        {canAdd && <AddButton onClick={handleToggleAdd}>+</AddButton>}
+        <AddButton onClick={handleToggleAdd}>+</AddButton>
       </TitleContainer>
       {isOpen && (
         <>

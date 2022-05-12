@@ -1,7 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import styled from "styled-components";
+import SearchProvider from "./search-context";
 import BoardProvider from "./board-context";
 import TaskBoard from "./task-board";
-import styled from "styled-components";
 import Loading from "./loading";
 
 const Project = () => {
@@ -14,9 +15,11 @@ const Project = () => {
   return (
     <Wrapper>
       <Title>{`${user.nickname}'s project board`}</Title>
-      <BoardProvider>
-        <TaskBoard />
-      </BoardProvider>
+      <SearchProvider>
+        <BoardProvider>
+          <TaskBoard />
+        </BoardProvider>
+      </SearchProvider>
     </Wrapper>
   );
 };
