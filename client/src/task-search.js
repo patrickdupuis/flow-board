@@ -1,25 +1,30 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext, createRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SearchContext } from "./search-context";
 import styled from "styled-components";
 import DroppableContainer from "./droppable-container";
 import SearchResults from "./search-results";
 import Loading from "./loading";
+import { FaSearch } from "react-icons/fa";
 
 const TaskSearch = ({ droppableId }) => {
+  const ref = createRef();
   const { getAccessTokenSilently } = useAuth0();
   const { setSearchResults } = useContext(SearchContext);
-  const [state, setState] = useState({
-    repositoryInput: "",
-    searchBarInput: "",
+  const [disabled, setDisabled] = useState(true);
+  const [status, setStatus] = useState({
     isSearching: false,
     message: "",
+  });
+  const [formData, setFormData] = useState({
+    repositoryInput: "",
+    searchBarInput: "is:open",
   });
 
   const fetchSearchResults = async (query) => {
     let message = "An unknown error occured";
-    setState({ ...state, isSearching: true });
+    setStatus({ ...status, isSearching: true });
     try {
       const token = await getAccessTokenSilently();
       const response = await fetch(`/search-issues?q=${query}`, {
@@ -48,80 +53,78 @@ const TaskSearch = ({ droppableId }) => {
     } catch (err) {
       console.log(err);
     } finally {
-      setState({ ...state, isSearching: false, message });
-    }
-  };
-
-  const clearSearchResults = () => {
-    setSearchResults([]);
-  };
-
-  const handleSearchInputChange = (ev) => {
-    setState({ ...state, searchBarInput: ev.target.value, message: "" });
-  };
-
-  const handleRepoInputChange = (ev) => {
-    setState({ ...state, repositoryInput: ev.target.value, message: "" });
-  };
-
-  const handleSearchKeyDown = (ev) => {
-    // if Enter key pressed
-    if (ev.keyCode === 13) {
-      handleSearchButtonClicked();
+      setStatus({ ...status, isSearching: false, message });
     }
   };
 
   const handleSearchButtonClicked = () => {
-    let query = state.searchBarInput;
-    let repo = state.repositoryInput;
-    if (repo.length > 0) {
-      // make array of split words
-      repo = repo.split("github.com/");
-      // check that the last word in repo array isn't empty string
-      if (repo[repo.length - 1].length > 0) {
-        // get the last element from repo array
-        repo = repo[repo.length - 1];
-        query = query.replaceAll(" ", "+");
-        query = query + `+repo:${repo}`;
-        // force search for issues only
-        query = query + "+is:issue";
-        clearSearchResults();
-        fetchSearchResults(encodeURIComponent(query));
-      }
+    let query = formData.searchBarInput;
+    let repo = formData.repositoryInput;
+    query = query.replaceAll(" ", "+");
+    query = query + `+repo:${repo}`;
+    query = encodeURIComponent(query);
+    fetchSearchResults(query);
+  };
+
+  const handleSearchInputChange = (ev) => {
+    setStatus({ ...status, message: "" });
+    setFormData({ ...formData, searchBarInput: ev.target.value });
+  };
+
+  const handleRepoInputChange = (ev) => {
+    setStatus({ ...status, message: "" });
+    setFormData({ ...formData, repositoryInput: ev.target.value });
+  };
+
+  const handleSearchKeyDown = (ev) => {
+    // if Enter key pressed
+    if (!disabled && ev.keyCode === 13) {
+      handleSearchButtonClicked();
+      // send focus to the search button
+      ref.current.focus();
     }
   };
+
+  useEffect(() => {
+    Object.values(formData).includes("")
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [formData, setDisabled]);
 
   return (
     <StyledDroppable droppableId={droppableId} isDropDisabled={true}>
       <Header>
-        <Title>Search</Title>
+        <Title>Github Search</Title>
       </Header>
       <Form>
         <FormInput
           type="text"
-          placeholder="github public repo url"
+          placeholder="organization/repository"
           onChange={handleRepoInputChange}
-          value={state.repositoryInput}
+          onKeyDown={handleSearchKeyDown}
+          value={formData.repositoryInput}
         />
-        <SearchContainer>
+        <FormGroup>
           <SearchBar
             type="text"
-            placeholder="search issues"
             onChange={handleSearchInputChange}
             onKeyDown={handleSearchKeyDown}
-            value={state.searchBarInput}
+            value={formData.searchBarInput}
           />
           <SearchButton
+            ref={ref}
             type="button"
             onClick={handleSearchButtonClicked}
-            value="search"
-          />
-        </SearchContainer>
+            disabled={disabled}
+          >
+            <FaSearch />
+          </SearchButton>
+        </FormGroup>
       </Form>
-      {state.isSearching ? (
+      {status.isSearching ? (
         <Loading />
       ) : (
-        <SearchResults message={state.message} />
+        <SearchResults message={status.message} />
       )}
     </StyledDroppable>
   );
@@ -156,33 +159,37 @@ const Form = styled.form`
   gap: 5px;
 `;
 
-const SearchContainer = styled.div`
+const FormGroup = styled.div`
   display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: flex-start;
 `;
 
 const FormInput = styled.input`
   padding: 8px;
   font-size: 18px;
+  border: 1px solid lightgrey;
+
+  &:focus {
+    outline: grey solid 1px;
+  }
 `;
 
 const SearchBar = styled(FormInput)`
-  min-width: 0;
-  flex: 3 1 0;
+  flex: 5;
 `;
 
-const SearchButton = styled.input`
-  min-width: 0;
-  flex: 1 1 0;
-  height: 41px;
-  padding: 8px;
-  border: 1px solid lightgrey;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
+const SearchButton = styled.button`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid;
+  border-color: lightgrey;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all 0.2s ease;
 
-  &:hover {
+  &:hover:enabled {
+    opacity: 1;
     background-color: lightgrey;
   }
 `;
