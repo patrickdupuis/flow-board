@@ -2,19 +2,24 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { SearchContext } from "./search-context";
-import DroppableContainer from "./droppable-container";
-import Card from "./card";
 import styled from "styled-components";
+import DroppableContainer from "./droppable-container";
+import SearchResults from "./search-results";
+import Loading from "./loading";
 
 const TaskSearch = ({ droppableId }) => {
-  const { searchResults, setSearchResults } = useContext(SearchContext);
+  const { getAccessTokenSilently } = useAuth0();
+  const { setSearchResults } = useContext(SearchContext);
   const [state, setState] = useState({
     repositoryInput: "",
     searchBarInput: "",
+    isSearching: false,
+    message: "",
   });
-  const { getAccessTokenSilently } = useAuth0();
 
   const fetchSearchResults = async (query) => {
+    let message = "An unknown error occured";
+    setState({ ...state, isSearching: true });
     try {
       const token = await getAccessTokenSilently();
       const response = await fetch(`/search-issues?q=${query}`, {
@@ -32,29 +37,38 @@ const TaskSearch = ({ droppableId }) => {
           };
         });
         setSearchResults(cards);
+        if (cards.length > 0) {
+          message = "";
+        } else {
+          message = "No Results Found";
+        }
       } else {
         setSearchResults([]);
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setState({ ...state, isSearching: false, message });
     }
   };
 
   const clearSearchResults = () => {
-    // clear previous results
-    if (searchResults.length > 0) {
-      setSearchResults([]);
-    }
+    setSearchResults([]);
   };
 
   const handleSearchInputChange = (ev) => {
-    clearSearchResults();
-    setState({ ...state, searchBarInput: ev.target.value });
+    setState({ ...state, searchBarInput: ev.target.value, message: "" });
   };
 
   const handleRepoInputChange = (ev) => {
-    clearSearchResults();
-    setState({ ...state, repositoryInput: ev.target.value });
+    setState({ ...state, repositoryInput: ev.target.value, message: "" });
+  };
+
+  const handleSearchKeyDown = (ev) => {
+    // if Enter key pressed
+    if (ev.keyCode === 13) {
+      handleSearchButtonClicked();
+    }
   };
 
   const handleSearchButtonClicked = () => {
@@ -71,6 +85,7 @@ const TaskSearch = ({ droppableId }) => {
         query = query + `+repo:${repo}`;
         // force search for issues only
         query = query + "+is:issue";
+        clearSearchResults();
         fetchSearchResults(encodeURIComponent(query));
       }
     }
@@ -93,6 +108,7 @@ const TaskSearch = ({ droppableId }) => {
             type="text"
             placeholder="search issues"
             onChange={handleSearchInputChange}
+            onKeyDown={handleSearchKeyDown}
             value={state.searchBarInput}
           />
           <SearchButton
@@ -102,17 +118,10 @@ const TaskSearch = ({ droppableId }) => {
           />
         </SearchContainer>
       </Form>
-      {searchResults.length > 0 ? (
-        searchResults.map((el, index) => (
-          <Card
-            key={el.id}
-            card={el}
-            index={index}
-            listIndex={Number(droppableId)}
-          />
-        ))
+      {state.isSearching ? (
+        <Loading />
       ) : (
-        <EmptySpace />
+        <SearchResults message={state.message} />
       )}
     </StyledDroppable>
   );
@@ -125,11 +134,6 @@ const StyledDroppable = styled(DroppableContainer)`
   width: var(--tasklist-width);
   min-height: 450px;
   background-color: #f8f8f8;
-`;
-
-const EmptySpace = styled.div`
-  width: 100%;
-  height: 100px;
 `;
 
 const Header = styled.div`
