@@ -1,16 +1,13 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import TaskList from "./task-list";
+import { SearchContext } from "./search-context";
+import DroppableContainer from "./droppable-container";
 import Card from "./card";
 import styled from "styled-components";
 
-const TaskSearch = ({
-  title,
-  searchResults,
-  setSearchResults,
-  droppableId,
-}) => {
+const TaskSearch = ({ droppableId }) => {
+  const { searchResults, setSearchResults } = useContext(SearchContext);
   const [state, setState] = useState({
     repositoryInput: "",
     searchBarInput: "",
@@ -80,58 +77,71 @@ const TaskSearch = ({
   };
 
   return (
-    <Wrapper>
-      <TaskList
-        title={title}
-        canAdd={false}
-        droppableId={droppableId}
-        isDropDisabled={true}
-      >
-        <Form>
-          <FormInput
+    <StyledDroppable droppableId={droppableId} isDropDisabled={true}>
+      <Header>
+        <Title>Search</Title>
+      </Header>
+      <Form>
+        <FormInput
+          type="text"
+          placeholder="github public repo url"
+          onChange={handleRepoInputChange}
+          value={state.repositoryInput}
+        />
+        <SearchContainer>
+          <SearchBar
             type="text"
-            placeholder="github public repo url"
-            onChange={handleRepoInputChange}
-            value={state.repositoryInput}
+            placeholder="search issues"
+            onChange={handleSearchInputChange}
+            value={state.searchBarInput}
           />
-          <SearchContainer>
-            <SearchBar
-              type="text"
-              placeholder="search issues"
-              onChange={handleSearchInputChange}
-              value={state.searchBarInput}
-            />
-            <SearchButton
-              type="button"
-              onClick={handleSearchButtonClicked}
-              value="search"
-            />
-          </SearchContainer>
-        </Form>
-        {searchResults.length > 0 ? (
-          searchResults.map((el, index) => (
-            <Card
-              key={el.id}
-              card={el}
-              index={index}
-              listIndex={Number(droppableId)}
-            />
-          ))
-        ) : (
-          <EmptySpace />
-        )}
-      </TaskList>
-    </Wrapper>
+          <SearchButton
+            type="button"
+            onClick={handleSearchButtonClicked}
+            value="search"
+          />
+        </SearchContainer>
+      </Form>
+      {searchResults.length > 0 ? (
+        searchResults.map((el, index) => (
+          <Card
+            key={el.id}
+            card={el}
+            index={index}
+            listIndex={Number(droppableId)}
+          />
+        ))
+      ) : (
+        <EmptySpace />
+      )}
+    </StyledDroppable>
   );
 };
+
+const StyledDroppable = styled(DroppableContainer)`
+  margin: 8px;
+  padding: 8px;
+  padding-bottom: 8rem;
+  width: var(--tasklist-width);
+  min-height: 450px;
+  background-color: #f8f8f8;
+`;
 
 const EmptySpace = styled.div`
   width: 100%;
   height: 100px;
 `;
 
-const Wrapper = styled.div`
-  position: relative;
+const Header = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const Title = styled.div`
+  margin: 0;
+  padding: 8px 0;
+  font-size: 18px;
 `;
 
 const Form = styled.form`
@@ -143,7 +153,6 @@ const Form = styled.form`
 `;
 
 const SearchContainer = styled.div`
-  position: relative;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;

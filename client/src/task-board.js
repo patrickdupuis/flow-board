@@ -1,28 +1,23 @@
 import { useContext } from "react";
-import { DragDropContext } from "@react-forked/dnd";
 import styled from "styled-components";
+import { DragDropContext } from "@react-forked/dnd";
 import { BoardContext } from "./board-context";
 import TaskList from "./task-list";
 import TaskSearch from "./task-search";
 import Card from "./card";
 
 const TaskBoard = () => {
-  const { listTitles, onDragEnd, state, setSearchResults } =
-    useContext(BoardContext);
+  const { listTitles, onDragEnd, state } = useContext(BoardContext);
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Wrapper>
-        {state.map((el, index) =>
-          index === 0 ? (
-            <TaskSearch
-              searchResults={state[0]}
-              setSearchResults={setSearchResults}
-              key={index}
-              title={listTitles[index]}
-              droppableId={`${index}`}
-            />
-          ) : (
+        {/*
+          the droppableId of TaskSearch must be -1
+        */}
+        {[
+          <TaskSearch key={-1} droppableId={`${-1}`} />,
+          ...state.map((el, index) => (
             <TaskList
               title={listTitles[index]}
               key={index}
@@ -37,8 +32,8 @@ const TaskBoard = () => {
                 />
               ))}
             </TaskList>
-          )
-        )}
+          )),
+        ]}
       </Wrapper>
     </DragDropContext>
   );
