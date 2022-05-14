@@ -1,8 +1,29 @@
+import { useEffect, useState } from "react";
 import DropDownProvider from "./dropdown-context";
 import CardMenu from "./card-menu";
 import styled from "styled-components";
+import { FaGithub } from "react-icons/fa";
 
 const CardContent = ({ card, index, listIndex }) => {
+  const [isGithub, setIsGithub] = useState(false);
+  const [repoInfo, setRepoInfo] = useState({
+    name: "",
+    number: "",
+  });
+
+  useEffect(() => {
+    if (card.url) {
+      const split = card.url.split("/").reverse();
+      setRepoInfo({
+        ...repoInfo,
+        url: card.url,
+        name: split[2],
+        number: `#${split[0]}`,
+      });
+      setIsGithub(true);
+    }
+  }, [card, isGithub, repoInfo]);
+
   return (
     <Wrapper>
       <Content>
@@ -16,10 +37,16 @@ const CardContent = ({ card, index, listIndex }) => {
         )}
         {card.content}
       </Content>
-      {card.url && (
-        <IssueLink href={card.url} target="_blank">
-          view on github
-        </IssueLink>
+      {isGithub && (
+        <LinkWrapper>
+          <IssueLink href={repoInfo.url} target="_blank">
+            <LinkGroup>
+              <FaGithub />
+              <span>{repoInfo.name}</span>
+              <span>{repoInfo.number}</span>
+            </LinkGroup>
+          </IssueLink>
+        </LinkWrapper>
       )}
     </Wrapper>
   );
@@ -49,10 +76,26 @@ const Content = styled.div`
   overflow-wrap: break-word;
 `;
 
+const LinkWrapper = styled.div`
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 15px;
+`;
+
 const IssueLink = styled.a`
-  margin-top: 8px;
-  font-size: 14px;
   color: grey;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const LinkGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 export default CardContent;
