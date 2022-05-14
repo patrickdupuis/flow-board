@@ -3,17 +3,17 @@ import { DropDownContext } from "./dropdown-context";
 import { BoardContext } from "./board-context";
 import CardDropdown from "./card-dropdown";
 import styled from "styled-components";
-import { FaEllipsisH, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { FaEllipsisH, FaTrashAlt } from "react-icons/fa";
 
 const CardMenu = ({ index, listIndex }) => {
   const { ref, isOpen, handleToggleMenu, handleClickOutside } =
     useContext(DropDownContext);
   const { state, updateBoard } = useContext(BoardContext);
   const menuItems = [
-    {
-      name: "Edit",
-      icon: <FaPencilAlt />,
-    },
+    // {
+    //   name: "Edit",
+    //   icon: <FaPencilAlt />,
+    // },
     {
       name: "Delete",
       icon: <FaTrashAlt />,
