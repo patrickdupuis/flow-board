@@ -16,7 +16,11 @@ const CardContent = ({ card, index, listIndex }) => {
         )}
         {card.content}
       </Content>
-      {card.url && <IssueLink href={card.url}>view on github</IssueLink>}
+      {card.url && (
+        <IssueLink href={card.url} target="_blank">
+          view on github
+        </IssueLink>
+      )}
     </Wrapper>
   );
 };
