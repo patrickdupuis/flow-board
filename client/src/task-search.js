@@ -168,6 +168,10 @@ const FormInput = styled.input`
   font-size: 18px;
   border: 1px solid lightgrey;
 
+  &::placeholder {
+    color: var(--input-placeholder-color);
+  }
+
   &:focus {
     outline: grey solid 1px;
   }
