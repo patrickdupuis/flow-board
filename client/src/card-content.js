@@ -86,9 +86,10 @@ const LinkWrapper = styled.div`
 const IssueLink = styled.a`
   color: grey;
   text-decoration: none;
+  border-bottom: 1px solid transparent;
 
   &:hover {
-    text-decoration: underline;
+    border-bottom: 1px solid grey;
   }
 `;
 
