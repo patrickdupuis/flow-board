@@ -131,6 +131,7 @@ const TaskSearch = ({ droppableId }) => {
 
 const StyledDroppable = styled(DroppableContainer)`
   margin: 8px;
+  margin-left: 0;
   padding: 8px;
   padding-bottom: 8rem;
   width: var(--tasklist-width);
