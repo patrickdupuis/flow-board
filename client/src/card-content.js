@@ -6,11 +6,14 @@ const CardContent = ({ card, index, listIndex }) => {
   return (
     <Wrapper>
       <Content>
-        <Menu>
-          <DropDownProvider>
-            <CardMenu index={index} listIndex={listIndex} />
-          </DropDownProvider>
-        </Menu>
+        {/* Search has index -1 so we hide the menu in this case */}
+        {listIndex !== -1 && (
+          <Menu>
+            <DropDownProvider>
+              <CardMenu index={index} listIndex={listIndex} />
+            </DropDownProvider>
+          </Menu>
+        )}
         {card.content}
       </Content>
       {card.url && <IssueLink href={card.url}>view on github</IssueLink>}
