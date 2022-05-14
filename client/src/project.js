@@ -13,29 +13,34 @@ const Project = () => {
   }
 
   return (
-    <Wrapper>
-      <Title>{`${user.nickname}'s project board`}</Title>
-      <SearchProvider>
-        <BoardProvider>
-          <TaskBoard />
-        </BoardProvider>
-      </SearchProvider>
-    </Wrapper>
+    <ScrollContainer>
+      <Wrapper>
+        <Title>{`${user.nickname}'s project board`}</Title>
+        <SearchProvider>
+          <BoardProvider>
+            <TaskBoard />
+          </BoardProvider>
+        </SearchProvider>
+      </Wrapper>
+    </ScrollContainer>
   );
 };
 
+const ScrollContainer = styled.div`
+  overflow: auto;
+`;
+
 const Wrapper = styled.div`
-  padding: 0 20px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  overflow: auto;
 `;
 
 const Title = styled.h3`
   margin: 0;
-  padding: calc(var(--header-height) / 4) 0;
+  padding: 20px 0 0 0;
   font-size: 28px;
   font-weight: 300;
 `;
