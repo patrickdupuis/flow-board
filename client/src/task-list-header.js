@@ -36,12 +36,14 @@ const TaskListHeader = ({ listIndex, title }) => {
       {isOpen && (
         <>
           <TextArea
-            placeholder="what to do?"
+            placeholder="what's your task?"
             onChange={handleInputChange}
             value={inputText}
           />
-          <Button type="button" value="Cancel" onClick={handleToggleAdd} />
-          <Button type="button" value="Add" onClick={handleAddNewCard} />
+          <ButtonGroup>
+            <Button type="button" value="Cancel" onClick={handleToggleAdd} />
+            <Button type="button" value="Add" onClick={handleAddNewCard} />
+          </ButtonGroup>
         </>
       )}
     </Wrapper>
@@ -67,6 +69,8 @@ const Title = styled.div`
 `;
 
 const AddButton = styled.button`
+  margin: 0;
+  padding: 0;
   border: none;
   font-size: 26px;
   background-color: transparent;
@@ -86,13 +90,17 @@ const TextArea = styled.textarea`
   resize: none;
 `;
 
+const ButtonGroup = styled.div`
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Button = styled.input`
-  min-width: 0;
-  flex: 1 1 0;
-  height: 41px;
-  padding: 8px;
+  height: 32px;
+  width: 80px;
   border: 1px solid lightgrey;
-  text-align: right;
+  text-align: center;
   font-size: 14px;
   transition: background-color 0.2s ease;
 
