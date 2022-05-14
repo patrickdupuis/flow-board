@@ -8,6 +8,7 @@ const GlobalStyle = styled.createGlobalStyle`
     --footer-height: 40px;
     --card-min-height: 80px;
     --tasklist-width: 320px;
+    --input-placeholder-color: #aaaaaa;
   }
 
   body {
