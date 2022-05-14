@@ -20,6 +20,7 @@ const StyledLink = styled(Link)`
   display: flex;
   align-items: center;
   color: black;
+  transition: all 0.2s ease;
 
   &:hover {
     opacity: 0.5;
