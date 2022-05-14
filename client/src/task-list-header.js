@@ -69,6 +69,7 @@ const Title = styled.div`
 const AddButton = styled.button`
   border: none;
   font-size: 26px;
+  background-color: transparent;
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.2s ease;
