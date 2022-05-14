@@ -86,10 +86,10 @@ const TaskSearch = ({ droppableId }) => {
   };
 
   useEffect(() => {
-    Object.values(formData).includes("")
+    Object.values(formData).includes("") || status.isSearching
       ? setDisabled(true)
       : setDisabled(false);
-  }, [formData, setDisabled]);
+  }, [formData, status, setDisabled]);
 
   return (
     <StyledDroppable droppableId={droppableId} isDropDisabled={true}>
