@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { SearchContext } from "./search-context";
 import styled from "styled-components";
 import DroppableContainer from "./droppable-container";
+import TaskSearchHeader from "./task-search-header";
 import SearchResults from "./search-results";
 import Loading from "./loading";
 import { FaSearch } from "react-icons/fa";
@@ -93,9 +94,7 @@ const TaskSearch = ({ droppableId }) => {
 
   return (
     <StyledDroppable droppableId={droppableId} isDropDisabled={true}>
-      <Header>
-        <Title>Github Search</Title>
-      </Header>
+      <TaskSearchHeader />
       <Form>
         <FormInput
           type="text"
@@ -137,18 +136,6 @@ const StyledDroppable = styled(DroppableContainer)`
   width: var(--tasklist-width);
   min-height: 450px;
   background-color: #f8f8f8;
-`;
-
-const Header = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-`;
-
-const Title = styled.div`
-  margin: 0;
-  padding: 8px 0;
-  font-size: 18px;
 `;
 
 const Form = styled.form`
