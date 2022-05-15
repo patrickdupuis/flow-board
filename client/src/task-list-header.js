@@ -93,10 +93,11 @@ const TextArea = styled.textarea`
 const ButtonGroup = styled.div`
   margin-top: 8px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Button = styled.input`
+  margin-left: 8px;
   height: 32px;
   width: 80px;
   border: 1px solid lightgrey;
