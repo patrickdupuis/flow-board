@@ -9,6 +9,9 @@ const GlobalStyle = styled.createGlobalStyle`
     --card-min-height: 80px;
     --tasklist-width: 320px;
     --input-placeholder-color: #aaaaaa;
+    --drag-source-background: #ffeeee;
+    --drag-destination-background: #effff1;
+    --drag-default-background: #f3f3f3;
   }
 
   body {
