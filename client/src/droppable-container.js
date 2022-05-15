@@ -34,10 +34,10 @@ const Container = styled.div`
   transition: background-color 0.2s ease;
   background-color: ${(props) =>
     props.isDraggingOver
-      ? "#effff1"
+      ? "var(--drag-destination-background)"
       : props.draggingFromThisWith
-      ? "#ffeeee"
-      : "#f8f8f8"};
+      ? "var(--drag-source-background)"
+      : "var(--drag-default-background)"};
 `;
 
 export default DroppableContainer;

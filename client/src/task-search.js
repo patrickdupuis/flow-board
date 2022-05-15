@@ -130,13 +130,9 @@ const TaskSearch = ({ droppableId }) => {
 };
 
 const StyledDroppable = styled(DroppableContainer)`
-  margin: 8px;
   margin-left: 0;
-  padding: 8px;
-  padding-bottom: 8rem;
-  width: var(--tasklist-width);
-  min-height: 450px;
-  background-color: #f8f8f8;
+  // fix bg color to avoid color change when dragging
+  background-color: var(--drag-default-background);
 `;
 
 const Form = styled.form`
