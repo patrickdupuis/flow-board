@@ -37,7 +37,7 @@ const Container = styled.div`
       ? "var(--drag-destination-background)"
       : props.draggingFromThisWith
       ? "var(--drag-source-background)"
-      : "var(--drag-default-background)"};
+      : "var(--color-grey-background)"};
 `;
 
 export default DroppableContainer;

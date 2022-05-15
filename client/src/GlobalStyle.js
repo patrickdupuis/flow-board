@@ -8,10 +8,10 @@ const GlobalStyle = styled.createGlobalStyle`
     --footer-height: 40px;
     --card-min-height: 80px;
     --tasklist-width: 320px;
+    --color-grey-background: #f3f3f3;
     --input-placeholder-color: #aaaaaa;
     --drag-source-background: #ffeeee;
     --drag-destination-background: #effff1;
-    --drag-default-background: #f3f3f3;
   }
 
   body {

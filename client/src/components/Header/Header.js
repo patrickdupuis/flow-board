@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   min-height: var(--header-height);
-  background-color: #f8f9fa;
+  background-color: var(--color-grey-background);
   box-shadow: 0 1px 2px 0 #dfe3ec;
 `;
 
