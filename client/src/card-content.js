@@ -84,12 +84,16 @@ const LinkWrapper = styled.div`
 `;
 
 const IssueLink = styled.a`
-  color: grey;
   text-decoration: none;
-  border-bottom: 1px solid transparent;
+  color: black;
+  opacity: 0.5;
+  border-bottom: 1px solid;
+  border-color: transparent;
+  transition: all 0.1s ease;
 
   &:hover {
-    border-bottom: 1px solid grey;
+    opacity: 1;
+    border-color: black;
   }
 `;
 
