@@ -1,6 +1,6 @@
-# FlowBoard Demo Application
+# FlowBoard
 
-This demo application is a small Kanban board made with React, Express, MongoDB, and Auth0.
+FlowBoard is an example Kanban board application made with React, Express, MongoDB, and Auth0.
 
 ## Project setup
 
