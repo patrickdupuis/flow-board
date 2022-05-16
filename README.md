@@ -14,6 +14,8 @@ npm install
 
 The project must be configured to use Auth0. For this, you'll need your own Auth0 account. You can get one for free at [https://auth0.com/](https://auth0.com/).
 
+This guide covers how authentication works in this application: [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
+
 In the folder `client/src/components/AuthorizationProvider/`, copy `auth_config.json.example` into a new file called `auth_config.json`. Replace the values with your own Auth0 application information:
 
 ```json
