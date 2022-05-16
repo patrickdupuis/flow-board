@@ -1,0 +1,6 @@
+// see: https://github.com/auth0-samples/auth0-react-samples/tree/master/Sample-01#configure-credentials
+{
+  "domain": "YOUR AUTH0 DOMAIN",
+  "clientId": "YOUR AUTH0 CLIENT ID",
+  "audience": "YOUR AUTH0 API_IDENTIFIER",
+}
