@@ -8,6 +8,9 @@ const GlobalStyle = styled.createGlobalStyle`
     --footer-height: 40px;
     --card-min-height: 80px;
     --tasklist-width: 320px;
+    --color-lighter-blue-button: #668cfe;
+    --color-normal-blue-button: #5f87fe;
+    --color-darker-blue-button: #5477e0;
     --color-grey-background: #f3f3f3;
     --input-placeholder-color: #aaaaaa;
     --drag-source-background: #ffeeee;
