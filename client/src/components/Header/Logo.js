@@ -1,11 +1,19 @@
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import KanbanIcon from "./KanbanIcon";
 
 const Logo = ({ className }) => {
+  const url = useLocation();
+  const [isLanding, setIsLanding] = useState(true);
+
+  useEffect(() => {
+    setIsLanding(url.pathname === "/");
+  }, [url]);
+
   return (
     <Wrapper>
-      <StyledLink reloadDocument to="/">
+      <StyledLink reloadDocument to="/" disabled={isLanding}>
         <StyledIcon className={className} />
       </StyledLink>
     </Wrapper>
@@ -23,7 +31,7 @@ const StyledLink = styled(Link)`
   transition: all 0.2s ease;
 
   &:hover {
-    opacity: 0.5;
+    opacity: ${(props) => (props.disabled ? 1 : 0.5)};
   }
 `;
 
