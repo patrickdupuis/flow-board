@@ -12,6 +12,8 @@ npm install
 
 ## Configuration
 
+### Auth0
+
 The project must be configured to use Auth0. For this, you'll need your own Auth0 account. You can get one for free at [https://auth0.com/](https://auth0.com/).
 
 This guide covers how authentication works in this application: [The Complete Guide to React User Authentication with Auth0](https://auth0.com/blog/complete-guide-to-react-user-authentication/)
@@ -25,6 +27,12 @@ In the folder `client/src/components/AuthorizationProvider/`, copy `auth_config.
   "audience": "YOUR_AUTH0_API_IDENTIFIER"
 }
 ```
+
+### MongoDB
+
+This application was designed to be used with a free tier MongoDB Atlas database hosted at [mongodb.com](https://www.mongodb.com/). The important thing is that you know what the "Connection String" is for your database. This quickstart guide will show you how you can connect to your database from a Node.js application: [Connect to your cluster](https://www.mongodb.com/docs/drivers/node/current/quick-start/#connect-to-your-cluster)
+
+### .env
 
 Create a new file in the root of the project called `.env`. Provide the following information:
 
